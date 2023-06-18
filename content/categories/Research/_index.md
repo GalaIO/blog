@@ -6,5 +6,5 @@ image: /site/cate-research.png
 # Badge style
 style:
     background: "#2a9d8f"
-    color: "#fff"
+    color: "#d98a91"
 ---

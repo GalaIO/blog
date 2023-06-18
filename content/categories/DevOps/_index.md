@@ -5,6 +5,6 @@ image: /site/cate-devops.png
 
 # Badge style
 style:
-    background: "#FFFFFF"
-    color: "#fff"
+    background: "#5ba585"
+    color: "#111f2c"
 ---
