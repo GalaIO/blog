@@ -1,13 +1,12 @@
 ---
-title: Hello World
+title: test-front-matter
 description: Welcome to Hugo Theme Stack
-slug: hello-world
-date: 2022-03-06 00:00:00+0000
+slug: test-front-matter
+date: 2023-03-06 00:00:00+0000
 image: cover.jpg
-categories:
-    - Example Category
-tags:
-    - Example Tag
+categories: [cate1, cate2]
+tags: [tag1, tag2]
+keywords: [cate1, cate2, tag1, tag2]
 links:
   - title: GitHub
     description: GitHub is the world's largest software development platform.

@@ -57,10 +57,10 @@ type = "toc"
 #site = ""
 #card = "summary_large_image"
 
-#[defaultImage.opengraph]
-#enabled = false
-#local = false
-#src = ""
+[defaultImage.opengraph]
+enabled = true
+local = false
+src = "/site/default.jpg"
 
 [colorScheme]
 toggle = true
