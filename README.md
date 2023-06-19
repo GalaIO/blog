@@ -1,4 +1,8 @@
-# blog.galacoding.fun
+# galaio.github.io
+
+This is a backup repo for public blog.
+
+please see [blog.galacoding.fun](https://blog.galacoding.fun/).
 
 ## Update manually
 
