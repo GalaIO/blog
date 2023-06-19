@@ -78,7 +78,7 @@ enabled = true
 provider = "giscus"
 
 [comments.giscus]
-repo = "GalaIO/blog.galacoding.fun"
+repo = "GalaIO/galaio.github.io"
 repoID = "R_kgDOJwojrg"
 category = "General"
 categoryID = "DIC_kwDOJwojrs4CXSBu"
