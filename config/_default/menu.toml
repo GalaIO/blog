@@ -23,10 +23,18 @@ url = "https://twitter.com/galaio_io"
 [social.params]
 icon = "brand-twitter"
 
+[[social]]
+identifier = "rss"
+name = "Rss"
+url = "/index.xml"
+
+[social.params]
+icon = "rss"
+
 #[[social]]
 #identifier = "wechat"
 #name = "公众号"
-#url = "https://twitter.com/galaio_io"
+#url = "xxx"
 #
 #[social.params]
 #icon = "brand-wechat"
