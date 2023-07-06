@@ -15,6 +15,14 @@ hugo mod tidy
 
 > This starter template has been configured with `v3` version of theme. Due to the limitation of Go module, once the `v4` or up version of theme is released, you need to update the theme manually. (Modifying `config/module.toml` file)
 
+## Writing
+
+All blogs are wrote in obsidian, using import tool to prehandle obsidian vault.
+
+1. Copy `.env.template` to `.env`, and edit your obsidian vault path, and edit which dir you want to export, also you must edit you hugo dir.
+
+2. Run `./import.sh`, it will import to `content/blog`.
+
 ## Deploy to another static page hostings
 
 If you want to build this site using another static page hosting, you need to make sure they have Go installed in the machine. 
