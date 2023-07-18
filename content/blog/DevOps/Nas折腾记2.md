@@ -20,20 +20,20 @@ tags:
     - linux
     - 趣玩
     - You
-title: Nas折腾记2
+title: NAS折腾记2
 ---
 
 <!----- [DevOps](/tags/DevOps) [NAS](/tags/NAS) [NUC12](/tags/NUC12) [linux](/tags/linux)  [趣玩](/tags/趣玩) ----->
 
 欢迎关注 **“攻城狮Gala”公/ 众 /号** ，每天一起学习，努力成为Web3全栈
 
-这是另一台Nas，我把专用设备换成了通用设备，可组合性提高不少，同时性能提升巨大～
+这是另一台NAS，我把专用设备换成了通用设备，可组合性提高不少，同时性能提升巨大～
 
 ## 背景
 
-终于又要折腾Nas了，上一次折腾还是上一次。。参考[NAS折腾记]({{< relref "blog/DevOps/NAS折腾记.md" >}})。这一次的主要原因是购买的云服务器性能不足，比如跑autoGpt？之前的Nas性能也一般，主要是型号太老，想继续升级太难。
+终于又要折腾NAS了，上一次折腾还是上一次。。参考[NAS折腾记]({{< relref "blog/DevOps/NAS折腾记.md" >}})。这一次的主要原因是购买的云服务器性能不足，比如跑AutoGPT？之前的NAS性能也一般，主要是型号太老，想继续升级太难。
 
-正好在网上看到有人转卖自己的NUC11，我检索了下，NUC的mini主机系列非常适合做Nas，它设计出来会考虑用在工业制造领域，支持`7*24`小时运行，而且性能非常可观。
+正好在网上看到有人转卖自己的NUC11，我检索了下，NUC的mini主机系列非常适合做NAS，它设计出来会考虑用在工业制造领域，支持`7*24`小时运行，而且性能非常可观。
 
 ## 硬件
 
@@ -55,7 +55,7 @@ title: Nas折腾记2
 
 #### 系统
 
-无脑ubuntu，有人可能会问怎么不用群晖，因为我主要当服务器使用，顺便搭建一些Nas软件提供存储服务。安装最新版本[Ubuntu Server 23.04](https://ubuntu.com/download/server)。
+无脑ubuntu，有人可能会问怎么不用群晖，因为我主要当服务器使用，顺便搭建一些NAS软件提供存储服务。安装最新版本[Ubuntu Server 23.04](https://ubuntu.com/download/server)。
 
 一些参考资料：
 - [Ubuntu.Server.CLI.pro.tips.19.04.22.pdf](/assets/Ubuntu.Server.CLI.pro.tips.19.04.22.pdf)
@@ -75,7 +75,7 @@ $ sudo resize2fs /dev/ubuntu-vg/ubuntu-lv
 
 #### 安装2.5寸硬盘
 
-如何安装2.5寸硬盘，参考如下，更多[指南参考](https://manuals.plus/zh-CN/intel/nuc-12-pro-kit-manual)。
+如何安装2.5寸硬盘，参考如下，注意是安装在NUC拆下的背板，更多[指南参考](https://manuals.plus/zh-CN/intel/nuc-12-pro-kit-manual)。
 
 ![Pasted image 20230625195309.png](/assets/Pasted%20image%2020230625195309.png)
 
@@ -85,14 +85,14 @@ $ sudo resize2fs /dev/ubuntu-vg/ubuntu-lv
 
 家里的网络有点复杂，首先有一个电信入户的光猫，在客厅有一个无线路由器，在卧室还有一个无线路由器，现在的一个问题是每个无线路由器都会开一个子网相互设备无法访问，虽然都可以访问公网。现在需要把所有无线路由器修改为无线AP，这样就可以共享光猫一个网段。
 
-假设被共享网段的路由器是猪路由器，对于一般的无线路由器，需要3个步骤成为无线AP：
+假设被共享网段的路由器是主路由器，对于一般的无线路由器，需要3个步骤成为无线AP：
 1. 关闭路由器DHCP功能；
 2. 在路由器LAN口设置，设置主路由器同网段任意未使用ip；
 3. 连接路由器的LAN口道主路由器的LAN口，也就是当交换机使用了；
 
 ![Pasted image 20230613215344.png](/assets/Pasted%20image%2020230613215344.png)
 
-> Note：小米或者红米路由器有一个有线中级设置，切换后直接变成无线AP。
+> Note：小米或者红米路由器有一个有线中继模式，切换后直接变成无线AP。
 
 参考资料：
 - [多台路由器如何串联（级联）？](https://smb.tp-link.com.cn/service/detail_article_89.html)
@@ -107,7 +107,7 @@ $ sudo resize2fs /dev/ubuntu-vg/ubuntu-lv
 
 ### 硬盘柜
 
-NUC上的固态始终容量有限无法存储所有数据，之前的NAS还有两个硬盘，经过搜索发现硬盘柜可以解决我的需求，加上一般内网访问磁盘速度在60MB/s左右基本满足需求，那么使用硬盘柜的方案也合理，不用整传输那么快～
+NUC上的固态始终容量有限无法存储所有数据，之前的NAS还有两个硬盘，经过搜索发现硬盘柜可以解决我的需求～
 
 硬盘柜选择的 奥睿科(ORICO)硬盘柜多盘位3.5英寸USB3.0 这款，有以下原因：
 - 有风扇，因为硬盘的温度需要控制一下才能更稳定传输，如果没风扇硬盘会超级烫；
@@ -136,6 +136,8 @@ sudo vim /etc/fstab
 # 按照格式填入挂载盘的uuid和挂载目录, 设置不会失败，超时9s，避免硬盘不再无法开机
 UUID="a22fe25c-304f-4989-9ca6-f2fcdb9342ef" /data ext4 defaults,nofail,x-systemd.device-timeout=9 0 1
 ```
+
+最终效果，**有线网络传输速度稳定在100MB/s**，**WiFi传输峰值在60MB/s**，WiFi偶尔掉速，随后需要升级全屋2.5G或万兆(包括路由器，交换机和网线)，WiFi升级为WiFi6，传输速度才会有进一步提升了。
 
 ## 服务端软件
 
@@ -653,18 +655,6 @@ sudo cp index.html /var/www/html/AriaNg/
 这是因为你没有输入正确aria2的RPC密码，该密码通过配置项`rpc-secret`修改。AriaNg可以在`AriaNg设置->RPC`处修改，如图：
 
 ![Pasted image 20230614215046.png](/assets/Pasted%20image%2020230614215046.png)
-
-### frp
-
-- [frp安装文档](https://gofrp.org/docs/setup/)
-- [frp](https://github.com/fatedier/frp)
-
-内网穿透
-1. 设置tcp范围穿透，范围6000～7000，[参考](https://github.com/fatedier/frp#range-ports-mapping)；随后自建服务都尽量使用6000～7000
-2. 设置`nas.galacoding.fun`, `*.nas.galacoding.fun` 全部转发到本机80端口，本机nginx根据hostname转发的各个服务，[参考](https://github.com/fatedier/frp/issues/2641)；这样所有挂在ngnix的web服务都直接可以使用穿透；
-3. 穿透smb服务；
-
-随后可以研究下frpc的xtcp模式，支持点对点内网穿透，挺好玩的。
 
 ### Samba
 
