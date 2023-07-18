@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Web3 on 攻城狮Gala</title><link>https://blog.galacoding.fun/tags/web3/</link><description>Recent content in Web3 on 攻城狮Gala</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 28 Jun 2023 10:41:56 +0800</lastBuildDate><atom:link href="https://blog.galacoding.fun/tags/web3/index.xml" rel="self" type="application/rss+xml"/><item><title>极客周刊(第1期)</title><link>https://blog.galacoding.fun/blog/research/%E6%9E%81%E5%AE%A2%E5%91%A8%E5%88%8A%E7%AC%AC1%E6%9C%9F/</link><pubDate>Wed, 28 Jun 2023 10:41:56 +0800</pubDate><guid>https://blog.galacoding.fun/blog/research/%E6%9E%81%E5%AE%A2%E5%91%A8%E5%88%8A%E7%AC%AC1%E6%9C%9F/</guid><description>&lt;img src="https://blog.galacoding.fun/assets/jike-weekly-banner2.png" alt="Featured image of post 极客周刊(第1期)" />&lt;!----- [Research](/tags/Research) [极客周刊](/tags/极客周刊) [Web3](/tags/Web3) ----->
+&lt;p>欢迎关注 &lt;strong>“攻城狮Gala”公/ 众 /号&lt;/strong> ，每天一起学习，努力成为Web3全栈&lt;/p>
+&lt;p>这里是极客周刊(第1期)，分享Web3，AI，编程等干货知识～&lt;/p>
+&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>为什么要做极客周刊呢？很简单，因为想通过分享技术动向，行业前沿知识，让自己更有动力去学习，同时也可以引起讨论，一起研究进步。自己也是订阅很多频道，但是没有经历去学习，甚至都懒得去看～所以极客周刊是自己学习的新开始，也希望对你在Web3，编程，AI等领域有所帮助～&lt;/p>
+&lt;h2 id="web3">Web3&lt;/h2>
+&lt;h3 id="password-recovery-for-account-abstraction-wallethttpsethresearchtpassword-recovery-for-account-abstraction-wallet15923">&lt;a class="link" href="https://ethresear.ch/t/password-recovery-for-account-abstraction-wallet/15923" target="_blank" rel="noopener"
+>Password recovery for Account Abstraction Wallet&lt;/a>&lt;/h3>
+&lt;p>该提案介绍使用 ZK-SNARKs 实现账户抽象钱包的密码恢复机制。首先将 hash(password, nonce) 存储在合约钱包中。如果用户丢失了私钥，他们可以使用密码生成一个零知识证明。证明用于验证用户知道密码并请求更改私钥。该机制通过延长确认期限和保护用户隐私，提供了安全可靠的密码恢复解决方案。&lt;/p>
+&lt;h3 id="how-to-empower-infrastructure-to-service-a-billion-strong-user-base-with-account-abstractionhttpsmediumcomblockpihow-to-empower-infrastructure-to-service-a-billion-strong-user-base-with-account-abstraction-7a2664a932d3"> &lt;a class="link" href="https://medium.com/@blockpi/how-to-empower-infrastructure-to-service-a-billion-strong-user-base-with-account-abstraction-7a2664a932d3" target="_blank" rel="noopener"
+>How to Empower Infrastructure to Service a Billion-Strong User Base with Account Abstraction&lt;/a>&lt;/h3>
+&lt;p>BlockPI通过这篇文章详细介绍了Account Abstraction的前世今生，以及当前发展现状和亟待解决问题。&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>Bundler&lt;/code>如何处理事务失败，本质还是打包问题，&lt;code>UserOperations&lt;/code>的打包是一个利益驱动行为，但是用户也会基于利益发送给多个&lt;code>Bundler&lt;/code>，那么如何更好服务用户同时获得最大化利益；&lt;/li>
+&lt;li> AA 的最大可提取价值 (MEV)，MEV 的逻辑也适用于 AA，因为 Bundlers 可以自由地对 UserOperations 进行排序，当前还是早起阶段，发展方向亦未确定；&lt;/li>
+&lt;/ol>
+&lt;p>未来发展：&lt;/p>
+&lt;ol>
+&lt;li>Public mempool，通过公共内存池建立去中心化平台；&lt;/li>
+&lt;li>Bundler的捆绑算法。目前Bundlers 采用直接简单的逻辑进行打包，随着 UserOperations 数量的增加，和公共内存池的引入，选择和捆绑 UserOperations 的策略变得更加复杂。目前有很多团队已经推出对应产品；&lt;/li>
+&lt;li>基础设施提供商需要提供至少两项基础服务，即Bundler服务和Paymaster服务；&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/Pasted%20image%2020230709232156.png"
+loading="lazy"
+alt="Pasted image 20230709232156.png"
+>&lt;/p>
+&lt;h3 id="explore-crypto-with-chatgpthttpswwwbanklesscomstep-up-your-crypto-analysis-with-chatgpt">&lt;a class="link" href="https://www.bankless.com/step-up-your-crypto-analysis-with-chatgpt" target="_blank" rel="noopener"
+>Explore Crypto with ChatGPT&lt;/a>&lt;/h3>
+&lt;p>Bankless本期带来了如何在ChatGPT中索引Crypto数据，简单几步提高数据分析效率：&lt;/p>
+&lt;ol>
+&lt;li>开通ChatGPT Plus；&lt;/li>
+&lt;li>进入&lt;code>Plugin store&lt;/code>，搜索“crypto,” “DeFi”等关键字，找到相关插件；&lt;/li>
+&lt;li>&lt;strong>SignalPlus&lt;/strong>插件可以帮助trader分析代币分布，交易热度等，当前NFT数据较少；&lt;/li>
+&lt;li>&lt;strong>CheckTheChain&lt;/strong>插件可以帮你分析链上数据，包括区块，交易，合约事件等；&lt;/li>
+&lt;li>&lt;strong>DefiLlama&lt;/strong>插件可以快速获取链上DeFi，Bridges数据，比如收益情况，TVL，实时数据等；&lt;/li>
+&lt;/ol>
+&lt;h3 id="新加坡金管局mas目的绑定货币到底是什么httpstwittercomwzxznlstatus1675398032354050050">&lt;a class="link" href="https://twitter.com/wzxznl/status/1675398032354050050" target="_blank" rel="noopener"
+>新加坡金管局MAS目的绑定货币到底是什么？&lt;/a>&lt;/h3>
+&lt;p>&lt;strong>菠菜菠菜&lt;/strong>在推特详细分析了新加坡金管局MAS最近发布了目的绑定货币（Purpose Bound Money，PBM）。PBM 是第三者对数字货币进行编程的方法，即用一个可以对支付逻辑进行编程的「包装合约」来打包数字货币，一旦支付逻辑条件满足，收款人就可以从「包装合约」中取出数字货币，使得货币本身仍然保持同质化。&lt;/p>
+&lt;p>潜在用途：预付套餐、在线商务、合同协议、商业租赁、贸易金融、捐款、跨境支付。未来的研究：可能包括研究 PBM 用于非智能手机形态（例如，卡）的使用，以及离线支付以减少对网络连接的依赖。&lt;/p>
+&lt;p>PBM白皮书中文版：&lt;a class="link" href="https://mirror.xyz/bocaibocai.eth/roM8SqO8Z6_iCtdo3eEMxS8HyenKO96Hsrkln_F5WVA" target="_blank" rel="noopener"
+>新加坡金管局MAS：目的绑定货币（PBM）技术白皮书&lt;/a>&lt;/p>
+&lt;h3 id="对话-ethstorage-创始人数据可用性和去中心化存储httpsmpweixinqqcoms1k8ue0jker_quxxszunbrwutm_sourcesubstackutm_mediumemail">&lt;a class="link" href="https://mp.weixin.qq.com/s/1K8ue0jkER_QuXXsZUNbRw?utm_source=substack&amp;amp;utm_medium=email" target="_blank" rel="noopener"
+>对话 EthStorage 创始人：数据可用性和去中心化存储&lt;/a>&lt;/h3>
+&lt;p>本期是ECN对&lt;strong>EthStorage 创始人 Qi Zhou&lt;/strong>的访谈，EthStorage与Eth生态结合紧密，并在积极推进EIP-4844升级，文章主要介绍了：&lt;/p>
+&lt;ol>
+&lt;li>数据可用性DA的讨论；&lt;/li>
+&lt;li>关于不同 DA 方案的讨论，什么是EIP-4844，以及当前的进展；&lt;/li>
+&lt;li>数据可用性委员会 (DAC) 的应用和局限；&lt;/li>
+&lt;li>EthStorage简介，以及存储证明，激励方案等机制说明；&lt;/li>
+&lt;/ol>
+&lt;p>其中Qi Zhou给出2组有意思的数据：&lt;/p>
+&lt;ol>
+&lt;li>L2 中可能有 90% 以上的费用都是支付给数据可用的费用，为了降低成本提供 DAC 数据可用性委员来提供自己的数据层。像 Arbitrum Nova，可能有六七个这样的节点，偏中心化方案。&lt;/li>
+&lt;li>EIP-4844升级所有Blob数据依然通过 P2P 的网络进行广播，Danksharding 后通过数据采样技术，不需要去下载，同时Danksharding会将区块大小提高到32MB，数据采样技术极大降低带宽压力。&lt;/li>
+&lt;/ol>
+&lt;h3 id="erigon-update-their-2023-roadmaphttpstwittercomerigonethstatus1677731373262446597">&lt;a class="link" href="https://twitter.com/ErigonEth/status/1677731373262446597" target="_blank" rel="noopener"
+>Erigon Update Their 2023 Roadmap&lt;/a>&lt;/h3>
+&lt;p>Erigon为了减少多次升级带来的用户体验问题，将Erigon4合并到一次升级，其中重点目标：&lt;/p>
+&lt;ol>
+&lt;li>增加Consensus Layer， &lt;code>Caplin&lt;/code>；&lt;/li>
+&lt;li>继续优化Sync的性能，带来更快的同步，更低的存储，预计20hr同步以太坊20m区块，存储小于1.2Tb；&lt;/li>
+&lt;li>支持verkle tree；&lt;/li>
+&lt;li>内嵌的&lt;code>Otterscan&lt;/code>；&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/Pasted%20image%2020230709215613.png"
+loading="lazy"
+alt="Pasted image 20230709215613.png"
+>&lt;/p>
+&lt;h2 id="devops">DevOps&lt;/h2>
+&lt;h3 id="使用cloudflare-pages托管网站httpsbloggalacodingfunblogdevopse4bdbfe794a8cloudflare-pagese68998e7aea1e7bd91e7ab99">&lt;a class="link" href="https://blog.galacoding.fun/blog/devops/%E4%BD%BF%E7%94%A8cloudflare-pages%E6%89%98%E7%AE%A1%E7%BD%91%E7%AB%99/" target="_blank" rel="noopener"
+>使用CloudFlare Pages托管网站&lt;/a>&lt;/h3>
+&lt;p>文章给出一个完美替代Github Pages的解决方案，CloudFlare Pages，基于CF稳定的全球CDN网络，与Git集成流水线，发布流程简单，功能丰富，同时更友好的大陆访问。&lt;/p>
+&lt;h2 id="趣玩">趣玩&lt;/h2>
+&lt;h3 id="实测虚拟信用卡与开通chatgpthttpsbloggalacodingfunblogmisce5ae9ee6b58be8999ae68b9fe4bfa1e794a8e58da1e4b88ee5bc80e9809achatgpt">&lt;a class="link" href="https://blog.galacoding.fun/blog/misc/%E5%AE%9E%E6%B5%8B%E8%99%9A%E6%8B%9F%E4%BF%A1%E7%94%A8%E5%8D%A1%E4%B8%8E%E5%BC%80%E9%80%9Achatgpt/" target="_blank" rel="noopener"
+>实测虚拟信用卡与开通ChatGPT&lt;/a>&lt;/h3>
+&lt;p>作者实测虚拟信用卡，体验了OneKey Card和Limao Pay，一个是加密用户友好，一个是微信支付友好，都可以开通CharGPT。&lt;/p>
+&lt;h3 id="搭建chatgpt与autogpthttpsbloggalacodingfunblogmisce690ade5bbbachatgpte4b88eautogpt">&lt;a class="link" href="https://blog.galacoding.fun/blog/misc/%E6%90%AD%E5%BB%BAchatgpt%E4%B8%8Eautogpt/" target="_blank" rel="noopener"
+>搭建ChatGPT与AutoGPT&lt;/a>&lt;/h3>
+&lt;p>如果你拥有OpenAI的API，一定不可错过这两个开源项目，有了OpenAI的&lt;code>API Key&lt;/code>，你可以按照博客搭建自己的ChatGPT，使用AutoGPT自动解决问题，以及更多有意思的AI探索～&lt;/p>
+&lt;h2 id="后记">后记&lt;/h2>
+&lt;p>感觉AI真的会变成刚需，非常火热～怪不得所有自媒体都在恰AI，有流量就有money～&lt;/p></description></item><item><title>实测虚拟信用卡与开通ChatGPT</title><link>https://blog.galacoding.fun/blog/misc/%E5%AE%9E%E6%B5%8B%E8%99%9A%E6%8B%9F%E4%BF%A1%E7%94%A8%E5%8D%A1%E4%B8%8E%E5%BC%80%E9%80%9Achatgpt/</link><pubDate>Sat, 10 Jun 2023 18:56:56 +0800</pubDate><guid>https://blog.galacoding.fun/blog/misc/%E5%AE%9E%E6%B5%8B%E8%99%9A%E6%8B%9F%E4%BF%A1%E7%94%A8%E5%8D%A1%E4%B8%8E%E5%BC%80%E9%80%9Achatgpt/</guid><description>&lt;img src="https://blog.galacoding.fun/assets/cardmapr-nl-s8F8yglbpjo-unsplash.jpg" alt="Featured image of post 实测虚拟信用卡与开通ChatGPT" />&lt;!----- [ChatGPT](/tags/ChatGPT) [Web3](/tags/Web3) [趣玩](/tags/趣玩) ----->
+&lt;p>欢迎关注 &lt;strong>“攻城狮Gala”公/ 众 /号&lt;/strong> ，每天一起学习，努力成为Web3全栈&lt;/p>
+&lt;h2 id="背景">背景&lt;/h2>
+&lt;p>办理虚拟信用卡的目的主要是开通ChatGPT，因为OpenAI的限制在中国是无法直接访问ChatGPT，同时也无法继续使用OpenAI的API。&lt;/p>
+&lt;p>OpenAI的API才是大杀器，可以让你实现自己ChatGPT或者搭建AutoGPT。最开始的时候申请了一个试用期，大概额度是18$，目前已经到期，所以亟需开通付费，倒是chatGPT Plus不着急开通。&lt;/p>
+&lt;h2 id="虚拟信用卡">虚拟信用卡&lt;/h2>
+&lt;p>虚拟信用卡其实就是没有实体卡而已，一般就是办理Visa或者Mastercard，经过检索，找到几个不错的虚拟信用卡供应商。202306月份OneKey Card新增美国Viasa卡，推荐使用OneKey Card。&lt;/p>
+&lt;h3 id="limaopay">LimaoPay&lt;/h3>
+&lt;p>这个&lt;a class="link" href="https://www.limaopay.com/register/#/register?codes=DpMXg5cW" target="_blank" rel="noopener"
+>LimaoPay&lt;/a>是在B站上看到的，体验了下是一个简易的供应商，需要&lt;strong>实名注册和人脸验证&lt;/strong>。好在提供的信用卡好段丰富，选择一个美国号段信用开卡即可。&lt;/p>
+&lt;p>比较坑的是手续费，每次充值都会有手续费，人民币转美元还有一次手续费收取，开卡也有费用。充值250元人民币，兑换33.33元美元。美元兑换汇率&lt;code>7.1988&lt;/code>，是在&lt;code>2023-06-09&lt;/code>。在线充值手续费4%。&lt;/p>
+&lt;p>值得一提是，充值目前只支持微信支付，对国内比较友好。&lt;/p>
+&lt;h4 id="开卡">开卡&lt;/h4>
+&lt;p>可以开&lt;code>559666&lt;/code>卡段的美国虚拟卡，注意是预付制信用卡，亲测可以使用ChatGPT，卡费有&lt;code>1.5$&lt;/code>，首次充值最少&lt;code>20$&lt;/code>。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/Pasted%20image%2020230610150239.png"
+loading="lazy"
+alt="Pasted image 20230610150239.png"
+>&lt;/p>
+&lt;p>开卡过程很简单，值得说明是选填信息的开卡国家可以不用填。&lt;/p>
+&lt;h4 id="风险提示">风险提示&lt;/h4>
+&lt;p>该供应商比较小众，切勿大额充值，如果平台运营稳定，可以使用很久，如果出现问题也需要迁移到其他虚拟信用卡平台，所以切勿大额充值。&lt;/p>
+&lt;h3 id="onekey-card">OneKey Card&lt;/h3>
+&lt;p>之前在网上搜到&lt;a class="link" href="https://card.onekey.so/?i=J0NTH2" target="_blank" rel="noopener"
+>OneKey Card&lt;/a>可以支持ChatGPT订阅，但是现在官网显示已经不可以了，实测也是被拒。注册需要&lt;strong>实名制+人脸认证&lt;/strong>。&lt;/p>
+&lt;p>OneKey Card比较有特点的是只能使用虚拟货币充值，信用卡只有香港卡段。&lt;/p>
+&lt;h4 id="开卡-1">开卡&lt;/h4>
+&lt;p>有两个香港卡段，花美元多建议&lt;code>493&lt;/code>卡段，注意是预付制信用卡。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/Pasted%20image%2020230610151513.png"
+loading="lazy"
+alt="Pasted image 20230610151513.png"
+>&lt;/p>
+&lt;p>充值实测，转账&lt;code>31$&lt;/code>，卡费&lt;code>1$&lt;/code>，卡余额&lt;code>29.38$&lt;/code>。充值手续费&lt;code>1.95%&lt;/code>，最低充值&lt;code>30$&lt;/code>，如果充值USDT有一点点汇率相对于USDC而言。&lt;/p>
+&lt;p>消费为非USD时有&lt;code>1.25%&lt;/code>货币转换费，也就是说人民币消费场景时你的消费力打折&lt;code>3.17%&lt;/code>，包含充值手续费+转换费。境外消费时可以用一下。&lt;/p>
+&lt;blockquote>
+&lt;p>Note: 其实在区块链网络发送稳定币也是要交易费的，不过这个费用是固定的不是按百分比收取，且不同交易所和网络转账费用不同。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="20230614更新">20230614更新&lt;/h4>
+&lt;p>&lt;a class="link" href="https://card.onekey.so/?i=J0NTH2" target="_blank" rel="noopener"
+>OneKey Card&lt;/a>增加美国优选卡，可以支持ChatGPT / OpenAI充值啦～开卡和之前一样，非常简单。同时费率不变，参考之前的计算结果。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/Pasted%20image%2020230614163449.png"
+loading="lazy"
+alt="Pasted image 20230614163449.png"
+>&lt;/p>
+&lt;h3 id="其他供应商">其他供应商&lt;/h3>
+&lt;p>在其他文章也找到一些虚拟信用卡的供应商，比如比较知名的Qbit Visa，Payoneer，但是需要企业开户或者需要境外网店入账100美元，操作复杂度更高，暂时放弃。&lt;/p>
+&lt;p>Depay很多网友反馈也可以付费ChatGPT，但是目前停止新用户注册，无法实测。&lt;/p>
+&lt;h2 id="付费chatgpt">付费ChatGPT&lt;/h2>
+&lt;p>根据上线实测，使用&lt;a class="link" href="https://card.onekey.so/?i=J0NTH2" target="_blank" rel="noopener"
+>OneKey Card&lt;/a>或&lt;a class="link" href="https://www.limaopay.com/register/#/register?codes=DpMXg5cW" target="_blank" rel="noopener"
+>LimaoPay&lt;/a>可以付费成功。&lt;/p>
+&lt;p>本文章只介绍OpenAI的API付费，ChatGPT Plus应该是一样的。登陆&lt;a class="link" href="https://platform.openai.com/account/billing/payment-methods" target="_blank" rel="noopener"
+>OpenAI Platform&lt;/a>网址，找到&lt;code>Billing-&amp;gt;Payment methods&lt;/code>，点击&lt;code>Add payment method&lt;/code>。&lt;/p>
+&lt;p>由于使用新加坡的IP，所以在&lt;a class="link" href="https://www.meiguodizhi.com/sg-address" target="_blank" rel="noopener"
+>这个网站&lt;/a>生成新加坡的虚拟地址填入表单。&lt;/p>
+&lt;blockquote>
+&lt;p>Note: 如果采用虚拟卡进行开通，部分虚拟卡开通的时候会随机生成一个地址，如果这个时候为大家提供了地址，我们就可以直接使用这个虚拟地址，使用起来非常的方便。&lt;/p>
+&lt;p>如果虚拟信用卡并会向大家提供相应的地址，我们可以尝试生成地址，接下来只需要直接填写就可以，操作起来非常的简单。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/Pasted%20image%2020230610152942.png"
+loading="lazy"
+alt="Pasted image 20230610152942.png"
+>&lt;/p>
+&lt;p>申请时候信用卡的ZIP直接拷贝生成地址的邮编，点击Submit即可。添加成功后会直接扣款&lt;code>5$&lt;/code>，随后按照使用额度付费。&lt;/p>
+&lt;blockquote>
+&lt;p>Note: 对于个人使用场景，20$真的可以使用很久了～&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="获得api-secret">获得API Secret&lt;/h3>
+&lt;p>在&lt;a class="link" href="https://platform.openai.com/account/api-keys" target="_blank" rel="noopener"
+>API Keys&lt;/a>页面可以查到所有Keys，也可以生成新的Key，注意保存，不要随便暴露，如果发现你的Key被滥用及时删除。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/Pasted%20image%2020230610161403.png"
+loading="lazy"
+alt="Pasted image 20230610161403.png"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>Note: 目前API无法使用&lt;code>GPT-4&lt;/code>，需要加入Waitlist，或者等公测，最新的就是&lt;code>gpt-3.5-turbo&lt;/code>。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_03_wxsousuo.png"
+loading="lazy"
+alt="2022_03_wxsousuo.png"
+>&lt;/p></description></item></channel></rss>

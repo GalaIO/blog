@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>GPT on 攻城狮Gala</title><link>https://blog.galacoding.fun/tags/gpt/</link><description>Recent content in GPT on 攻城狮Gala</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 10 Jun 2023 15:55:43 +0800</lastBuildDate><atom:link href="https://blog.galacoding.fun/tags/gpt/index.xml" rel="self" type="application/rss+xml"/><item><title>搭建ChatGPT与AutoGPT</title><link>https://blog.galacoding.fun/blog/misc/%E6%90%AD%E5%BB%BAchatgpt%E4%B8%8Eautogpt/</link><pubDate>Sat, 10 Jun 2023 15:55:43 +0800</pubDate><guid>https://blog.galacoding.fun/blog/misc/%E6%90%AD%E5%BB%BAchatgpt%E4%B8%8Eautogpt/</guid><description>&lt;img src="https://blog.galacoding.fun/assets/ilgmyzin-agFmImWyPso-unsplash.jpg" alt="Featured image of post 搭建ChatGPT与AutoGPT" />&lt;!----- [GPT](/tags/GPT) [趣玩](/tags/趣玩) [linux](/tags/linux) [ChatGPT](/tags/ChatGPT) ----->
+&lt;p>欢迎关注 &lt;strong>“攻城狮Gala”公/ 众 /号&lt;/strong> ，每天一起学习，努力成为Web3全栈&lt;/p>
+&lt;h2 id="背景">背景&lt;/h2>
+&lt;p>国内使用ChatGPT必须套壳，所以今天介绍两个壳，同时扩展出了新的AI能力，不止是ChatGPT。&lt;/p>
+&lt;p>参考：&lt;a class="link" href="https://www.bilibili.com/video/BV1so4y1M7oA/" target="_blank" rel="noopener"
+>ChatGPT割韭菜？我只服国产套壳！&lt;/a>，&lt;a class="link" href="https://www.bilibili.com/video/BV1Fm4y1m7DH/" target="_blank" rel="noopener"
+>AutoGPT确实很强！全自动Ai一分钟部署！&lt;/a>&lt;/p>
+&lt;h2 id="chatgpt-web">ChatGPT-Web&lt;/h2>
+&lt;p>这是一个ChatGPT的国内套壳&lt;a class="link" href="https://github.com/Chanzhaoyu/chatgpt-web" target="_blank" rel="noopener"
+>ChatGPT-Web&lt;/a>，支持两种模式：&lt;/p>
+&lt;ol>
+&lt;li>使用代理通过accessToken防伪ChatGPT，因为国内无法访问，需要连接代理服务器用自己的session访问；&lt;/li>
+&lt;li>使用OpenAI的API模拟一个ChatGPT，没有专门为Chat场景优化，程序设置简单role和上下文开启对话；&lt;/li>
+&lt;/ol>
+&lt;h3 id="部署">部署&lt;/h3>
+&lt;p>部署很简单，我使用的OpenAI的API方式，直接docker-compose部署，配置文件如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;3&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">services&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">app&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">chenzhaoyu94/chatgpt-web&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 总是使用 latest ,更新时重新 pull 该 tag 镜像即可&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">ports&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>- &lt;span class="m">3002&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="m">3002&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">environment&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># DEBUG: &amp;#34;express:*&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">OPENAI_API_KEY&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">sk-**********&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># API接口地址，可选，设置 OPENAI_API_KEY 时可用&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># OPENAI_API_BASE_URL: xxx&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># API模型，可选，设置 OPENAI_API_KEY 时可用，https://platform.openai.com/docs/models&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># gpt-4, gpt-4-0314, gpt-4-32k, gpt-4-32k-0314, gpt-3.5-turbo, gpt-3.5-turbo-0301, text-davinci-003, text-davinci-002, cod&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># e-davinci-002&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">OPENAI_API_MODEL&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">gpt-3.5-turbo&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># 反向代理，可选&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># API_REVERSE_PROXY: xxx&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># 访问权限密钥，可选&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># AUTH_SECRET_KEY: gyjyx&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># 每小时最大请求次数，可选，默认无限&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">MAX_REQUEST_PER_HOUR&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">1000&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># 超时，单位毫秒，可选&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">TIMEOUT_MS&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">60000&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># Socks代理，可选，和 SOCKS_PROXY_PORT 一起时生效&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># SOCKS_PROXY_HOST: 172.17.0.1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># Socks代理端口，可选，和 SOCKS_PROXY_HOST 一起时生效&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># SOCKS_PROXY_PORT: 7890&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># HTTPS 代理，可选，支持 http，https，socks5&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># HTTPS_PROXY: http://172.17.0.1:7890&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>注意国内服务器使用请打开代理模式。docker部署时，注意ip地址应该是宿主机ip。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="体验">体验&lt;/h3>
+&lt;p>体验很糟糕，可能是网络环境问题？在体验过程中频繁遇到&lt;code>chay-process&lt;/code>API的&lt;code>pending&lt;/code>问题，十分影响体验。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/Pasted%20image%2020230610161715.png"
+loading="lazy"
+alt="Pasted image 20230610161715.png"
+>&lt;/p>
+&lt;p>有能力的小伙伴可以自行维护一个fork版本，界面还是不错的。&lt;/p>
+&lt;h3 id="fork版本">fork版本&lt;/h3>
+&lt;p>还有一个该项目的fork版本，&lt;a class="link" href="https://github.com/Kerwin1202/chatgpt-web" target="_blank" rel="noopener"
+>chatgpt-web&lt;/a>。该版本没有尝试，更适合做商业化，增加了用户管理。&lt;/p>
+&lt;h2 id="autogpt-next-web">AutoGPT-Next-Web&lt;/h2>
+&lt;p>&lt;a class="link" href="https://github.com/Dogtiti/AutoGPT-Next-Web" target="_blank" rel="noopener"
+>AutoGPT-Next-Web&lt;/a>是一个将AutoGPT Web化的服务，部署也很简单，因为docker image的问题，拉取镜像部署失败，选择手动部署。&lt;/p>
+&lt;h3 id="部署-1">部署&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git clone https://github.com/ConnectAI-E/AutoGPT-Next-Web.git
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nvm install v18.12.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nvm use v18.12.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">vim .env
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./prisma/useSqlite.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Create database migrations&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">DATABASE_URL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;file:./db.sqlite&amp;#34;&lt;/span> npx prisma db push
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">DATABASE_URL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;file:./db.sqlite&amp;#34;&lt;/span> npm run dev
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>环境变量在&lt;code>.env&lt;/code>。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">PORT&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">3000&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Deployment Environment:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">NODE_ENV&lt;/span>&lt;span class="o">=&lt;/span>development
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">https_proxy&lt;/span>&lt;span class="o">=&lt;/span>http://127.0.0.1:7890
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">http_proxy&lt;/span>&lt;span class="o">=&lt;/span>http://127.0.0.1:7890
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">all_proxy&lt;/span>&lt;span class="o">=&lt;/span>socks5://127.0.0.1:7890
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Next Auth config:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Generate a secret with `openssl rand -base64 32` or visit https://generate-secret.vercel.app/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">NEXTAUTH_SECRET&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;jhonh7OKRzZc0ESHUI5eRSvy8sa3woPV7sGmcm8Fkl0=&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">NEXTAUTH_URL&lt;/span>&lt;span class="o">=&lt;/span>http://chatgpt.xx.xx
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">DATABASE_URL&lt;/span>&lt;span class="o">=&lt;/span>file:./db.sqlite
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">NEXT_PUBLIC_WEB_SEARCH_ENABLED&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;true&amp;#39;&lt;/span> &lt;span class="o">[&lt;/span>true&lt;span class="o">](&lt;/span>/tags/true&lt;span class="o">)&lt;/span> or &lt;span class="nb">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">SERP_API_KEY&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Your open api key&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">OPENAI_API_KEY&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;sk-********&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="体验-1">体验&lt;/h3>
+&lt;p>体验还可以，任务会自动拆分然后执行给出结果，但是很多结果显示不全只有一小部分，需要研究下。&lt;/p>
+&lt;h2 id="agentgpt">AgentGPT&lt;/h2>
+&lt;p>&lt;a class="link" href="https://github.com/reworkd/AgentGPT" target="_blank" rel="noopener"
+>AgentGPT&lt;/a>是另一个AutoGPT的助手，web版本的，部署非常简单。&lt;/p>
+&lt;h3 id="部署-2">部署&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git clone https://github.com/reworkd/AgentGPT.git &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">cd&lt;/span> AgentGPT
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./setup.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>Note: 注意非常吃资源。。。云服务器需要好的配置，测试了下2c2g不太行，大概率是内存太小了，建议本地部署本地使用。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="auto-gpt">Auto-GPT&lt;/h2>
+&lt;p>&lt;a class="link" href="https://github.com/Significant-Gravitas/Auto-GPT" target="_blank" rel="noopener"
+>Auto-GPT&lt;/a>本地命令版，没有好的界面。&lt;a class="link" href="https://docs.agpt.co/setup/" target="_blank" rel="noopener"
+>部署参考&lt;/a>。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_03_wxsousuo.png"
+loading="lazy"
+alt="2022_03_wxsousuo.png"
+>&lt;/p></description></item></channel></rss>

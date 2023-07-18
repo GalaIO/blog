@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Coding on 攻城狮Gala</title><link>https://blog.galacoding.fun/categories/coding/</link><description>Recent content in Coding on 攻城狮Gala</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 31 Mar 2022 21:00:22 +0800</lastBuildDate><atom:link href="https://blog.galacoding.fun/categories/coding/index.xml" rel="self" type="application/rss+xml"/><item><title>Git部署与使用</title><link>https://blog.galacoding.fun/blog/coding/git%E9%83%A8%E7%BD%B2%E4%B8%8E%E4%BD%BF%E7%94%A8/</link><pubDate>Thu, 31 Mar 2022 21:00:22 +0800</pubDate><guid>https://blog.galacoding.fun/blog/coding/git%E9%83%A8%E7%BD%B2%E4%B8%8E%E4%BD%BF%E7%94%A8/</guid><description>&lt;img src="https://blog.galacoding.fun/assets/2022_03_20220330232734.png" alt="Featured image of post Git部署与使用" />&lt;!----- [笔记同步](/tags/笔记同步) [趣玩](/tags/趣玩) [Git](/tags/Git) ----->
+&lt;p>欢迎关注 &lt;strong>“攻城狮Gala”公/ 众 /号&lt;/strong> ，每天一起学习，努力成为Web3全栈&lt;/p>
+&lt;blockquote>
+&lt;p>摘要：当你有自己的服务器，同时期望私有化进行版本管理内容 or 代码，部署自己的Git服务器是一个绝佳选择。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="背景">背景&lt;/h2>
+&lt;p>之前折腾笔记同步，虽然已经有S3可以在不同设备同步内容，但是对于不同设备同时修改或者出现编辑冲突时，使用S3变成噩梦，无法处理这种情况。&lt;/p>
+&lt;p>这时候Git作为版本化管理工具，可以完美解决这种问题。同时本着折腾的精神，决定在自己的云服务器部署Git服务，而不是使用Github的免费私有仓库。&lt;/p>
+&lt;blockquote>
+&lt;p>选择自建服务还有两点：1.基于github的国内的访问速度；2.对私有数据的隐私保护；&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="服务端搭建">服务端搭建&lt;/h2>
+&lt;h3 id="git服务器部署">Git服务器部署&lt;/h3>
+&lt;p>在Git服务器选项方面，采用&lt;a class="link" href="https://gogs.io/" target="_blank" rel="noopener"
+>gogs&lt;/a>，gogs是使用Go开发的Git服务器，自带Web UI管理界面，非常赞。&lt;/p>
+&lt;p>部署的话自然是使用&lt;code>docker&lt;/code>，部署方便之极，依赖docker和docker-compose，安装的自行找资料吧，比较简单。&lt;/p>
+&lt;p>下面是docker-compos.yaml配置，gogs容器需要挂载整个&lt;code>/data&lt;/code>目录，来保存生成的数据。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;2&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">services&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">db&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">container_name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">gogs_db&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">mysql&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">volumes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>- &lt;span class="s2">&amp;#34;./mysql/data:/var/lib/mysql&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>- &lt;span class="s2">&amp;#34;./mysql/conf.d:/etc/mysql/conf.d&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">command&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">mysqld --lower_case_table_names=1 --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">restart&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">always&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">environment&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">MYSQL_USER&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">gogs&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">MYSQL_PASSWORD&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">123456&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">MYSQL_ROOT_PASSWORD&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">123456&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">MYSQL_DATABASE&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">gogs&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">gogs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">container_name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">gogs&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">depends_on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>- &lt;span class="l">db&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">docker.io/gogs/gogs:latest&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">links&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>- &lt;span class="l">db&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">ports&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>- &lt;span class="s2">&amp;#34;10022:22&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>- &lt;span class="s2">&amp;#34;13000:3000&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">volumes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>- &lt;span class="l">./gogs/:/data&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">restart&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">always&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>注意&lt;code>mysql 8.0&lt;/code>后root用户登录密码采用加密验证了，所以建议新增一个专用的账户来登录mysql，而不是使用root登录。&lt;/p>
+&lt;/blockquote>
+&lt;p>在docker-compose.yaml的目录，执行如下命令启动服务：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker-compose up -d
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="设置域名">设置域名&lt;/h3>
+&lt;p>强烈建议设置域名使用你的git服务，同时启用https。当前android等系统已经要求访问链接必须是https。&lt;/p>
+&lt;p>我的服务就设置了对应https访问，命名可以做个参考：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">https://git.xxx.com -&amp;gt; localhost:13000
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">https://gitssh.xxx.com -&amp;gt; localhost:10022
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="git服务器初始化">Git服务器初始化&lt;/h3>
+&lt;p>启动后访问&lt;code>http://127.0.0.1:13000&lt;/code>，启动后页面初始化，注意填写数据库主机时使用docker的container作为ip即可。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_02_20220220104648.png"
+loading="lazy"
+alt="2022_02_20220220104648.png"
+>&lt;/p>
+&lt;p>应用设置的时候，填写相应的域名。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_02_20220220104848.png"
+loading="lazy"
+alt="2022_02_20220220104848.png"
+>&lt;/p>
+&lt;p>点击最下面的立即安装，等待片刻。安装成功后可以登录，并创建你的仓库。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_03_20220327214948.png"
+loading="lazy"
+alt="2022_03_20220327214948.png"
+>&lt;/p>
+&lt;h2 id="客户端">客户端&lt;/h2>
+&lt;p>如何从Git服务拉取仓库，并同步本地更改呢？下面介绍几个操作系统的客户端。&lt;/p>
+&lt;h3 id="winmac客户端">Win/Mac客户端&lt;/h3>
+&lt;p>对于PC操作系统来说，git安装非常方便。访问&lt;a class="link" href="https://git-scm.com/downloads" target="_blank" rel="noopener"
+>git官网&lt;/a>就有安装教程。&lt;/p>
+&lt;h3 id="android客户端">Android客户端&lt;/h3>
+&lt;p>对于android来说，目前也有一些选择，我使用的是&lt;a class="link" href="https://github.com/maks/MGit" target="_blank" rel="noopener"
+>MGit&lt;/a>。体验还可以，如果是私有仓库会记住你的账户密码进行拉取。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>Git服务搭建好后，可以非常方便应对类似笔记这种，内容变化后各设备同步的场景。以后除了同步笔记外，还可以作为个人私有代码仓库使用。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_03_wxsousuo.png"
+loading="lazy"
+alt="2022_03_wxsousuo.png"
+>&lt;/p></description></item></channel></rss>

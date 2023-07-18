@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TODO on 攻城狮Gala</title><link>https://blog.galacoding.fun/tags/todo/</link><description>Recent content in TODO on 攻城狮Gala</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 31 Mar 2022 20:58:28 +0800</lastBuildDate><atom:link href="https://blog.galacoding.fun/tags/todo/index.xml" rel="self" type="application/rss+xml"/><item><title>如何导出为知笔记？</title><link>https://blog.galacoding.fun/blog/misc/%E5%A6%82%E4%BD%95%E5%AF%BC%E5%87%BA%E4%B8%BA%E7%9F%A5%E7%AC%94%E8%AE%B0/</link><pubDate>Thu, 31 Mar 2022 20:58:28 +0800</pubDate><guid>https://blog.galacoding.fun/blog/misc/%E5%A6%82%E4%BD%95%E5%AF%BC%E5%87%BA%E4%B8%BA%E7%9F%A5%E7%AC%94%E8%AE%B0/</guid><description>&lt;img src="https://blog.galacoding.fun/assets/2022_03_20220328001409.png" alt="Featured image of post 如何导出为知笔记？" />&lt;!----- [obsidian](/tags/obsidian) [知识管理](/tags/知识管理) [笔记同步](/tags/笔记同步) ----->
+&lt;p>欢迎关注 &lt;strong>“攻城狮Gala”公/ 众 /号&lt;/strong> ，每天一起学习，努力成为Web3全栈&lt;/p>
+&lt;blockquote>
+&lt;p>摘要：如何在闭源软件中导出自己的笔记呢？现在成为一个值得研究的课题- -&lt;/p>
+&lt;/blockquote>
+&lt;p>使用付费服务的笔记导出就是在和闭源软件做斗争，&lt;code>为知笔记&lt;/code>有点恶心了，新版本很难导出。在调研时发现，为知对于私有部署是可以使用官方提供的迁移工具的，感兴趣的小伙伴可以研究下。&lt;/p>
+&lt;h3 id="旧版win客户端导出">旧版Win客户端导出&lt;/h3>
+&lt;p>使用&lt;code>4.13.33&lt;/code>版本的为知Win客户端，只支持单个文件的md导出，不支持批量，但是我的笔记有500多篇。根本不可能单个导出，而且还没有快捷键，操作一个md的导出复杂和耗时不敢想象。&lt;/p>
+&lt;p>经过搜索，发现很多人都是导出为html作为数据备份，如果html可以满足需求的话，使用该版本分别对文件夹导出即可。&lt;/p>
+&lt;p>还有一个信息，该版本的客户端将所有笔记保存在&lt;code>文档/My Knowledge/data/user&lt;/code>目录下，所有的笔记是可以zip方式解压，然后看到资源文件和html。&lt;/p>
+&lt;h3 id="memocast客户端">Memocast客户端&lt;/h3>
+&lt;p>随后搜索到&lt;a class="link" href="https://github.com/TankNee/Memocast" target="_blank" rel="noopener"
+>Memocast&lt;/a>，是重写为知笔记的客户端，而且支持批量导出md，简直福音。但是最后使用效果导出后图片的路径是&lt;code>Memocast://xxxx&lt;/code>，开玩笑么。。。随后看github的issue作者已经解决了，但是需要进一步反馈问题或者调试代码。&lt;/p>
+&lt;h3 id="使用openapi">使用OpenAPI&lt;/h3>
+&lt;p>为知笔记提供了&lt;code>OpenAPI&lt;/code>来查看和编辑笔记，Memocast也是类似方式，&lt;a class="link" href="https://www.wiz.cn/wapp/pages/book/bb8f0f10-48ca-11ea-b27a-ef51fb9d4bb4/700c0ba0-48cb-11ea-a61a-d3d58d67def9" target="_blank" rel="noopener"
+>服务说明及登录&lt;/a>和&lt;a class="link" href="https://www.wiz.cn/wapp/pages/book/bb8f0f10-48ca-11ea-b27a-ef51fb9d4bb4/475c9ef0-4e1a-11ea-8f5c-a7618da01da2" target="_blank" rel="noopener"
+>笔记接口&lt;/a>介绍了如何登录获取Token，如何查询文件夹文档，下载html，下载资源(图片)等接口。&lt;/p>
+&lt;blockquote>
+&lt;p>对于为知笔记来说，所有的笔记保存为html，所以下载后需要做转换。&lt;/p>
+&lt;/blockquote>
+&lt;p>通过&lt;code>Postman&lt;/code>的接口测试发现完全可行，那么就可以编程导出了。具体的&lt;a class="link" href="https://github.com/GalaIO/wiz_export" target="_blank" rel="noopener"
+>代码&lt;/a>。html转md的库使用&lt;a class="link" href="https://github.com/JohannesKaufmann/html-to-markdown" target="_blank" rel="noopener"
+>html-to-markdown&lt;/a>，案例代码&lt;a class="link" href="https://github.com/JohannesKaufmann/html-to-markdown/blob/master/examples/github_flavored/main.go" target="_blank" rel="noopener"
+>在这&lt;/a>。&lt;/p>
+&lt;p>如何使用？按照下面提示输入账户和密码，然后设置导出的文件夹即可。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">go install github.com/GalaIO/wiz_export@latest
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wiz_export --output &lt;span class="s1">&amp;#39;./&amp;#39;&lt;/span> --userId &lt;span class="s1">&amp;#39;xx&amp;#39;&lt;/span> --password &lt;span class="s1">&amp;#39;xx&amp;#39;&lt;/span> --folders &lt;span class="s1">&amp;#39;/日记/,/工作/&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>目前从为知导出的脚本有几个问题，有空再解决 &lt;a class="link" href="https://blog.galacoding.fun/tags/TODO" >TODO&lt;/a> ：
+1.对于新版本生成的笔记，导出会显示版本过低
+2.对于某些md转换的链接，脚本匹配错误，没有下载图片资源
+3.附件资源未下载，随后检查并下载全部的附件资源&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_03_wxsousuo.png"
+loading="lazy"
+alt="2022_03_wxsousuo.png"
+>&lt;/p></description></item></channel></rss>

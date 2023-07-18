@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>笔记同步 on 攻城狮Gala</title><link>https://blog.galacoding.fun/tags/%E7%AC%94%E8%AE%B0%E5%90%8C%E6%AD%A5/</link><description>Recent content in 笔记同步 on 攻城狮Gala</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 31 Mar 2022 21:03:38 +0800</lastBuildDate><atom:link href="https://blog.galacoding.fun/tags/%E7%AC%94%E8%AE%B0%E5%90%8C%E6%AD%A5/index.xml" rel="self" type="application/rss+xml"/><item><title>Obsidia笔记如何同步？</title><link>https://blog.galacoding.fun/blog/misc/obsidia%E7%AC%94%E8%AE%B0%E5%A6%82%E4%BD%95%E5%90%8C%E6%AD%A5/</link><pubDate>Thu, 31 Mar 2022 21:03:38 +0800</pubDate><guid>https://blog.galacoding.fun/blog/misc/obsidia%E7%AC%94%E8%AE%B0%E5%A6%82%E4%BD%95%E5%90%8C%E6%AD%A5/</guid><description>&lt;img src="https://blog.galacoding.fun/assets/2022_03_20220330233357.png" alt="Featured image of post Obsidia笔记如何同步？" />&lt;!----- [obsidian](/tags/obsidian) [知识管理](/tags/知识管理) [效率](/tags/效率) [笔记同步](/tags/笔记同步) ----->
+&lt;p>欢迎关注 &lt;strong>“攻城狮Gala”公/ 众 /号&lt;/strong> ，每天一起学习，努力成为Web3全栈&lt;/p>
+&lt;blockquote>
+&lt;p>摘要：如果使用S3同步笔记太痛苦，不如尝试使用Git服务同步吧。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="笔记同步">笔记同步&lt;/h2>
+&lt;p>从云笔记迁移到开源笔记产品后，对于写笔记的体验和效率提升确实巨大。不过对于提供收费服务的产品来说，有一些服务时开源笔记无法提供。其中一点就是笔记同步。&lt;/p>
+&lt;p>笔记同步的需求主要在于，你可能会在多台设备阅读或者编辑笔记，这时候需要保持多设备之间的数据一致。&lt;/p>
+&lt;p>当前主流的几种同步方式，无非是S3、云存储、git等。我折腾的目的就是使用开源自建的服务，所以第一个尝试的就是S3。&lt;/p>
+&lt;h2 id="使用s3">使用S3&lt;/h2>
+&lt;p>&lt;a class="link" href="https://aws.amazon.com/cn/s3/" target="_blank" rel="noopener"
+>S3&lt;/a> 来源于AWS的对象存储服务，后来作为一个标准协议，出现很多云服务商、开源软件的S2兼容协议API，所以你可以发现S3出现在各种有关存储的地方，应用已经比较广泛了。&lt;/p>
+&lt;h3 id="minio搭建">MinIO搭建&lt;/h3>
+&lt;p>&lt;a class="link" href="https://docs.min.io/" target="_blank" rel="noopener"
+>MinIO&lt;/a>是一个开源对象服务器，使用Go实现，可以兼容AWS S3 Api，可以用来同步笔记内容，随后也可以再一次性同步回自己的Nas做北非，线上S3同步参考&lt;a class="link" href="https://rclone.org/" target="_blank" rel="noopener"
+>RClone&lt;/a>。&lt;/p>
+&lt;p>执行如下命令部署MinIO：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wget https://dl.min.io/server/minio/release/linux-amd64/minio
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod +x minio
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">MINIO_ROOT_USER&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">test&lt;/span> &lt;span class="nv">MINIO_ROOT_PASSWORD&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">test&lt;/span> ./minio server ./ --console-address &lt;span class="s2">&amp;#34;:9001&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>随后你会得到如下输出：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">API: http://172.22.0.15:9000 http://127.0.0.1:9000
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Console: http://172.22.0.15:9001 http://127.0.0.1:9001
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这个是admin用户，可以直接作为key和secret访问。&lt;/p>
+&lt;h3 id="tls配置">TLS配置&lt;/h3>
+&lt;p>为了可以在android和mac同时使用，最好有域名，并且申请好TLS证书，否则无法使用(&lt;a class="link" href="https://stackoverflow.com/questions/45940861/android-8-cleartext-http-traffic-not-permitted" target="_blank" rel="noopener"
+>android升级后必须使用安全的协议&lt;/a>、&lt;a class="link" href="https://www.tacit.dk/foldersync/faq/#i-can-not-connect-to-a-non-https-webdav-server-why" target="_blank" rel="noopener"
+>I can not connect to a non-HTTPS WebDav server. Why?&lt;/a>)。你可以使用nginx代理https，转发到http端口。&lt;/p>
+&lt;blockquote>
+&lt;p>注意MinIO不支持http/2，千万别在代理配置的时候打开http/2，我折腾好久，差点折在这。。。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="手机端同步">手机端同步&lt;/h3>
+&lt;p>搭建好S3服务器后，需要对应的客户端搭配。在android手机端，推荐使用foldersync免费版。&lt;/p>
+&lt;p>打开软件，建立账户，并使用如下配置。&lt;/p>
+&lt;blockquote>
+&lt;p>注意自定义端点的&lt;code>/&lt;/code>要保留。随后在同步设置时选择对应的bucket文件夹。&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Access key ID: &lt;span class="nb">test&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Secret access key: &lt;span class="nb">test&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">自定义端点：https://s3.xxxxx.com/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">区域：随便选一个
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="obsidian插件配置">Obsidian插件配置&lt;/h3>
+&lt;p>除了使用S3客户端，同时可以在Obsidian安装&lt;code>Remotely Save&lt;/code>插件，进行同步。&lt;/p>
+&lt;p>配置如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">S3Endpoint：https://s3.xxxxx.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">S3Region: us
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">S3AccessKeyID: &lt;span class="nb">test&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">S3SecretAccessKey: &lt;span class="nb">test&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">S3BucketName: bj
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>配置完成后，check一下。如果显示成功，随后就可以配置定期备份。&lt;/p>
+&lt;h3 id="s3同步缺点">S3同步缺点&lt;/h3>
+&lt;p>S3解决了文件在多设备同步问题，但是无法记录文件的重命名、移动等等，所以如果对笔记的文件夹修改，S3服务端无法感知，导致旧文件和新文件同时存在。&lt;/p>
+&lt;p>同样的如果在多设备对同一文件进行修改，出现冲突也是非常头疼。如果你存在这种场景S3并不是最优解。&lt;/p>
+&lt;h2 id="使用git">使用Git&lt;/h2>
+&lt;p>对于存在多设备修改进行同步的场景，Git服务同步更适合你，而不是S3服务。对于Git服务如何应用在Obsidian笔记同步，有一篇文章介绍&lt;a class="link" href="https://medium.com/analytics-vidhya/how-i-put-my-mind-under-version-control-24caea37b8a5" target="_blank" rel="noopener"
+>Obsidian的Git同步原理&lt;/a>。&lt;/p>
+&lt;p>简单理解就是，现在本地建立好仓库，每次更新笔记使用&lt;code>git commit -m&lt;/code>变成一次提交，并上传&lt;code>git push&lt;/code>。在其他设备需要修改时，先&lt;code>git pull&lt;/code>拉取远程更新，如果出现冲突，进行修改并再次提交即可。&lt;/p>
+&lt;h3 id="建立仓库">建立仓库&lt;/h3>
+&lt;p>推荐使用Github或者其他私有Git服务来同步笔记，毕竟是隐私数据，需要做好保护。&lt;/p>
+&lt;p>需要注意的是忽略文件，避免提交不必要的数据，导致频繁冲突。我使用的&lt;code>.gitignore&lt;/code>文件如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">.obsidian/cache
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">.obsidian/workspace
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">.trash
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">.DS_Store
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="插件推荐">插件推荐&lt;/h3>
+&lt;p>上节提到的文件，介绍Git同步的原理，需要不断上传和拉取。在Obsidian的插件市场，有一款可以代替你执行-&lt;a class="link" href="https://github.com/denolehov/obsidian-git" target="_blank" rel="noopener"
+>Obsidian的Git插件&lt;/a>。&lt;/p>
+&lt;p>该插件可以设置定时提交和拉取，同时指定提交信息、分支、同步模式等等，确实够用了。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_03_20220327224705.png"
+loading="lazy"
+alt="2022_03_20220327224705.png"
+>&lt;/p>
+&lt;h3 id="使用体验">使用体验&lt;/h3>
+&lt;p>使用Git同步后，对文件夹修改、文件重命名、修改内容等再也不会担心会冲突，也不存在需要对本地和远程同时修改的情况。完美解决我的需求，赞！&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_03_wxsousuo.png"
+loading="lazy"
+alt="2022_03_wxsousuo.png"
+>&lt;/p></description></item><item><title>Git部署与使用</title><link>https://blog.galacoding.fun/blog/coding/git%E9%83%A8%E7%BD%B2%E4%B8%8E%E4%BD%BF%E7%94%A8/</link><pubDate>Thu, 31 Mar 2022 21:00:22 +0800</pubDate><guid>https://blog.galacoding.fun/blog/coding/git%E9%83%A8%E7%BD%B2%E4%B8%8E%E4%BD%BF%E7%94%A8/</guid><description>&lt;img src="https://blog.galacoding.fun/assets/2022_03_20220330232734.png" alt="Featured image of post Git部署与使用" />&lt;!----- [笔记同步](/tags/笔记同步) [趣玩](/tags/趣玩) [Git](/tags/Git) ----->
+&lt;p>欢迎关注 &lt;strong>“攻城狮Gala”公/ 众 /号&lt;/strong> ，每天一起学习，努力成为Web3全栈&lt;/p>
+&lt;blockquote>
+&lt;p>摘要：当你有自己的服务器，同时期望私有化进行版本管理内容 or 代码，部署自己的Git服务器是一个绝佳选择。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="背景">背景&lt;/h2>
+&lt;p>之前折腾笔记同步，虽然已经有S3可以在不同设备同步内容，但是对于不同设备同时修改或者出现编辑冲突时，使用S3变成噩梦，无法处理这种情况。&lt;/p>
+&lt;p>这时候Git作为版本化管理工具，可以完美解决这种问题。同时本着折腾的精神，决定在自己的云服务器部署Git服务，而不是使用Github的免费私有仓库。&lt;/p>
+&lt;blockquote>
+&lt;p>选择自建服务还有两点：1.基于github的国内的访问速度；2.对私有数据的隐私保护；&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="服务端搭建">服务端搭建&lt;/h2>
+&lt;h3 id="git服务器部署">Git服务器部署&lt;/h3>
+&lt;p>在Git服务器选项方面，采用&lt;a class="link" href="https://gogs.io/" target="_blank" rel="noopener"
+>gogs&lt;/a>，gogs是使用Go开发的Git服务器，自带Web UI管理界面，非常赞。&lt;/p>
+&lt;p>部署的话自然是使用&lt;code>docker&lt;/code>，部署方便之极，依赖docker和docker-compose，安装的自行找资料吧，比较简单。&lt;/p>
+&lt;p>下面是docker-compos.yaml配置，gogs容器需要挂载整个&lt;code>/data&lt;/code>目录，来保存生成的数据。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;2&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">services&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">db&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">container_name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">gogs_db&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">mysql&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">volumes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>- &lt;span class="s2">&amp;#34;./mysql/data:/var/lib/mysql&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>- &lt;span class="s2">&amp;#34;./mysql/conf.d:/etc/mysql/conf.d&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">command&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">mysqld --lower_case_table_names=1 --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">restart&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">always&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">environment&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">MYSQL_USER&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">gogs&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">MYSQL_PASSWORD&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">123456&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">MYSQL_ROOT_PASSWORD&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">123456&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">MYSQL_DATABASE&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">gogs&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">gogs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">container_name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">gogs&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">depends_on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>- &lt;span class="l">db&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">docker.io/gogs/gogs:latest&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">links&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>- &lt;span class="l">db&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">ports&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>- &lt;span class="s2">&amp;#34;10022:22&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>- &lt;span class="s2">&amp;#34;13000:3000&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">volumes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>- &lt;span class="l">./gogs/:/data&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">restart&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">always&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>注意&lt;code>mysql 8.0&lt;/code>后root用户登录密码采用加密验证了，所以建议新增一个专用的账户来登录mysql，而不是使用root登录。&lt;/p>
+&lt;/blockquote>
+&lt;p>在docker-compose.yaml的目录，执行如下命令启动服务：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker-compose up -d
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="设置域名">设置域名&lt;/h3>
+&lt;p>强烈建议设置域名使用你的git服务，同时启用https。当前android等系统已经要求访问链接必须是https。&lt;/p>
+&lt;p>我的服务就设置了对应https访问，命名可以做个参考：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">https://git.xxx.com -&amp;gt; localhost:13000
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">https://gitssh.xxx.com -&amp;gt; localhost:10022
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="git服务器初始化">Git服务器初始化&lt;/h3>
+&lt;p>启动后访问&lt;code>http://127.0.0.1:13000&lt;/code>，启动后页面初始化，注意填写数据库主机时使用docker的container作为ip即可。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_02_20220220104648.png"
+loading="lazy"
+alt="2022_02_20220220104648.png"
+>&lt;/p>
+&lt;p>应用设置的时候，填写相应的域名。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_02_20220220104848.png"
+loading="lazy"
+alt="2022_02_20220220104848.png"
+>&lt;/p>
+&lt;p>点击最下面的立即安装，等待片刻。安装成功后可以登录，并创建你的仓库。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_03_20220327214948.png"
+loading="lazy"
+alt="2022_03_20220327214948.png"
+>&lt;/p>
+&lt;h2 id="客户端">客户端&lt;/h2>
+&lt;p>如何从Git服务拉取仓库，并同步本地更改呢？下面介绍几个操作系统的客户端。&lt;/p>
+&lt;h3 id="winmac客户端">Win/Mac客户端&lt;/h3>
+&lt;p>对于PC操作系统来说，git安装非常方便。访问&lt;a class="link" href="https://git-scm.com/downloads" target="_blank" rel="noopener"
+>git官网&lt;/a>就有安装教程。&lt;/p>
+&lt;h3 id="android客户端">Android客户端&lt;/h3>
+&lt;p>对于android来说，目前也有一些选择，我使用的是&lt;a class="link" href="https://github.com/maks/MGit" target="_blank" rel="noopener"
+>MGit&lt;/a>。体验还可以，如果是私有仓库会记住你的账户密码进行拉取。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>Git服务搭建好后，可以非常方便应对类似笔记这种，内容变化后各设备同步的场景。以后除了同步笔记外，还可以作为个人私有代码仓库使用。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_03_wxsousuo.png"
+loading="lazy"
+alt="2022_03_wxsousuo.png"
+>&lt;/p></description></item><item><title>如何导出为知笔记？</title><link>https://blog.galacoding.fun/blog/misc/%E5%A6%82%E4%BD%95%E5%AF%BC%E5%87%BA%E4%B8%BA%E7%9F%A5%E7%AC%94%E8%AE%B0/</link><pubDate>Thu, 31 Mar 2022 20:58:28 +0800</pubDate><guid>https://blog.galacoding.fun/blog/misc/%E5%A6%82%E4%BD%95%E5%AF%BC%E5%87%BA%E4%B8%BA%E7%9F%A5%E7%AC%94%E8%AE%B0/</guid><description>&lt;img src="https://blog.galacoding.fun/assets/2022_03_20220328001409.png" alt="Featured image of post 如何导出为知笔记？" />&lt;!----- [obsidian](/tags/obsidian) [知识管理](/tags/知识管理) [笔记同步](/tags/笔记同步) ----->
+&lt;p>欢迎关注 &lt;strong>“攻城狮Gala”公/ 众 /号&lt;/strong> ，每天一起学习，努力成为Web3全栈&lt;/p>
+&lt;blockquote>
+&lt;p>摘要：如何在闭源软件中导出自己的笔记呢？现在成为一个值得研究的课题- -&lt;/p>
+&lt;/blockquote>
+&lt;p>使用付费服务的笔记导出就是在和闭源软件做斗争，&lt;code>为知笔记&lt;/code>有点恶心了，新版本很难导出。在调研时发现，为知对于私有部署是可以使用官方提供的迁移工具的，感兴趣的小伙伴可以研究下。&lt;/p>
+&lt;h3 id="旧版win客户端导出">旧版Win客户端导出&lt;/h3>
+&lt;p>使用&lt;code>4.13.33&lt;/code>版本的为知Win客户端，只支持单个文件的md导出，不支持批量，但是我的笔记有500多篇。根本不可能单个导出，而且还没有快捷键，操作一个md的导出复杂和耗时不敢想象。&lt;/p>
+&lt;p>经过搜索，发现很多人都是导出为html作为数据备份，如果html可以满足需求的话，使用该版本分别对文件夹导出即可。&lt;/p>
+&lt;p>还有一个信息，该版本的客户端将所有笔记保存在&lt;code>文档/My Knowledge/data/user&lt;/code>目录下，所有的笔记是可以zip方式解压，然后看到资源文件和html。&lt;/p>
+&lt;h3 id="memocast客户端">Memocast客户端&lt;/h3>
+&lt;p>随后搜索到&lt;a class="link" href="https://github.com/TankNee/Memocast" target="_blank" rel="noopener"
+>Memocast&lt;/a>，是重写为知笔记的客户端，而且支持批量导出md，简直福音。但是最后使用效果导出后图片的路径是&lt;code>Memocast://xxxx&lt;/code>，开玩笑么。。。随后看github的issue作者已经解决了，但是需要进一步反馈问题或者调试代码。&lt;/p>
+&lt;h3 id="使用openapi">使用OpenAPI&lt;/h3>
+&lt;p>为知笔记提供了&lt;code>OpenAPI&lt;/code>来查看和编辑笔记，Memocast也是类似方式，&lt;a class="link" href="https://www.wiz.cn/wapp/pages/book/bb8f0f10-48ca-11ea-b27a-ef51fb9d4bb4/700c0ba0-48cb-11ea-a61a-d3d58d67def9" target="_blank" rel="noopener"
+>服务说明及登录&lt;/a>和&lt;a class="link" href="https://www.wiz.cn/wapp/pages/book/bb8f0f10-48ca-11ea-b27a-ef51fb9d4bb4/475c9ef0-4e1a-11ea-8f5c-a7618da01da2" target="_blank" rel="noopener"
+>笔记接口&lt;/a>介绍了如何登录获取Token，如何查询文件夹文档，下载html，下载资源(图片)等接口。&lt;/p>
+&lt;blockquote>
+&lt;p>对于为知笔记来说，所有的笔记保存为html，所以下载后需要做转换。&lt;/p>
+&lt;/blockquote>
+&lt;p>通过&lt;code>Postman&lt;/code>的接口测试发现完全可行，那么就可以编程导出了。具体的&lt;a class="link" href="https://github.com/GalaIO/wiz_export" target="_blank" rel="noopener"
+>代码&lt;/a>。html转md的库使用&lt;a class="link" href="https://github.com/JohannesKaufmann/html-to-markdown" target="_blank" rel="noopener"
+>html-to-markdown&lt;/a>，案例代码&lt;a class="link" href="https://github.com/JohannesKaufmann/html-to-markdown/blob/master/examples/github_flavored/main.go" target="_blank" rel="noopener"
+>在这&lt;/a>。&lt;/p>
+&lt;p>如何使用？按照下面提示输入账户和密码，然后设置导出的文件夹即可。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">go install github.com/GalaIO/wiz_export@latest
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wiz_export --output &lt;span class="s1">&amp;#39;./&amp;#39;&lt;/span> --userId &lt;span class="s1">&amp;#39;xx&amp;#39;&lt;/span> --password &lt;span class="s1">&amp;#39;xx&amp;#39;&lt;/span> --folders &lt;span class="s1">&amp;#39;/日记/,/工作/&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>目前从为知导出的脚本有几个问题，有空再解决 &lt;a class="link" href="https://blog.galacoding.fun/tags/TODO" >TODO&lt;/a> ：
+1.对于新版本生成的笔记，导出会显示版本过低
+2.对于某些md转换的链接，脚本匹配错误，没有下载图片资源
+3.附件资源未下载，随后检查并下载全部的附件资源&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_03_wxsousuo.png"
+loading="lazy"
+alt="2022_03_wxsousuo.png"
+>&lt;/p></description></item><item><title>个人笔记新解-Obsidian</title><link>https://blog.galacoding.fun/blog/misc/%E4%B8%AA%E4%BA%BA%E7%AC%94%E8%AE%B0%E6%96%B0%E8%A7%A3-obsidian/</link><pubDate>Mon, 21 Mar 2022 20:50:29 +0800</pubDate><guid>https://blog.galacoding.fun/blog/misc/%E4%B8%AA%E4%BA%BA%E7%AC%94%E8%AE%B0%E6%96%B0%E8%A7%A3-obsidian/</guid><description>&lt;img src="https://blog.galacoding.fun/assets/2022_03_20220321124411.png" alt="Featured image of post 个人笔记新解-Obsidian" />&lt;!----- [obsidian](/tags/obsidian) [知识管理](/tags/知识管理) [效率](/tags/效率) [笔记同步](/tags/笔记同步) ----->
+&lt;p>欢迎关注 &lt;strong>“攻城狮Gala”公/ 众 /号&lt;/strong> ，每天一起学习，努力成为Web3全栈&lt;/p>
+&lt;p>现有笔记太难用了，如何使用新的工具破局。自己之前一直在使用为知笔记，体验越来越糟糕。主要有几个原因：&lt;/p>
+&lt;ol>
+&lt;li>为知笔记的编辑器很难用，尤其是对md的支持很差；&lt;/li>
+&lt;li>最近有备份需求，但是为知笔记新版本竟然去掉导出文件夹功能，对自己的笔记安全存在担心；&lt;/li>
+&lt;li>一直在找可以写公众号的方式，至少一键复制到公众号，而为知笔记的使用体验太差了；&lt;/li>
+&lt;li>搜索功能可以当做没有，好多次搜索文章没搜出来；&lt;/li>
+&lt;li>没有笔记发现和关联功能，不好做笔记整理和知识积累；&lt;/li>
+&lt;/ol>
+&lt;p>经过一段时间调研决定使用新的笔记软件，具体是以&lt;code>本地笔记+线上博客+自建服务&lt;/code>的形式完成笔记的记录同步和发表，重在折腾。&lt;/p>
+&lt;h2 id="本地笔记-obsidian">本地笔记-Obsidian&lt;/h2>
+&lt;p>&lt;a class="link" href="https://obsidian.md/" target="_blank" rel="noopener"
+>Obsidian&lt;/a>笔记主要使用markdown格式，通过本地文件管理笔记，支持即时预览，同时支持知识管理。更重要的是Obsidian是一个免费的开源笔记，丰富的社区生态让Obsidian变得非常实用，有很多分享软件的使用方法，分享好用的插件。&lt;/p>
+&lt;h3 id="笔记管理">笔记管理&lt;/h3>
+&lt;p>记笔记是Obsidian最基本的功能，具体使用可以参考文章&lt;a class="link" href="https://sspai.com/post/62414" target="_blank" rel="noopener"
+>玩转 Obsidian 01：打造知识循环利器&lt;/a>。以markdown格式为主笔记也是好用的。&lt;/p>
+&lt;h3 id="todo任务">ToDo任务&lt;/h3>
+&lt;p>详见&lt;a class="link" href="https://medium.com/geekculture/how-i-track-my-tasks-in-obsidian-47fd7ad80364" target="_blank" rel="noopener"
+>参考&lt;/a>，使用Todo插件可以非常简单创建Todo，添加优先级，记录完成时间。&lt;/p>
+&lt;h3 id="笔记同步">笔记同步&lt;/h3>
+&lt;p>这个功能摸索是最痛苦的，因为喜欢折腾，所以收费的官方同步服务是不会使用的- -。&lt;/p>
+&lt;p>最开始选择的方案是WebDav，分为向mac+android同步。但是obsidian的三方插件的webdav太差劲了，根本没法用，手机采用foldersync需要设置https才能使用webdav(&lt;a class="link" href="https://stackoverflow.com/questions/45940861/android-8-cleartext-http-traffic-not-permitted" target="_blank" rel="noopener"
+>android升级后必须使用安全的协议&lt;/a>、&lt;a class="link" href="https://www.tacit.dk/foldersync/faq/#i-can-not-connect-to-a-non-https-webdav-server-why" target="_blank" rel="noopener"
+>I can not connect to a non-HTTPS WebDav server. Why?&lt;/a>)。&lt;/p>
+&lt;p>经过长期折腾后决定采用，S3作为存储服务，手机使用&lt;code>foldersync&lt;/code>同步，mac使用三方插件&lt;code>Remotely Save&lt;/code>。&lt;/p>
+&lt;blockquote>
+&lt;p>突然发现市面上针对S3的产品还挺多呀，生态丰富！！中间准备使用几个重量的方案，比如nextCloud等，而syncthing也不好用，设备不在一个子网下面，速度感人。幸好S3折腾成功了。&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>但是用过一段时间S3也发现几个问题，首先是笔记的整理，比如重命名、移动位置，无法应用到S3上，导致笔记重复在多个位置。而且还存在一个编辑冲突的问题，如果多设备修改存在冲突怎么办？所以决定改为Git，也有三方插件支持。&lt;a class="link" href="https://blog.galacoding.fun/blog/misc/obsidia%E7%AC%94%E8%AE%B0%E5%A6%82%E4%BD%95%E5%90%8C%E6%AD%A5/" >Obsidia笔记如何同步？&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="网页剪辑">网页剪辑&lt;/h3>
+&lt;p>网页剪辑的功能非常重要，主要是对文章可以下载进行存档，obsidian是纯粹的markdown的文本记录，所以最好剪辑成markdown的格式，推荐插件&lt;a class="link" href="https://chrome.google.com/webstore/detail/markdown-clipper/cjedbglnccaioiolemnfhjncicchinao" target="_blank" rel="noopener"
+>markdown-clipper&lt;/a>可以直接下载，非常适合obsidian。&lt;/p>
+&lt;h3 id="表格">表格&lt;/h3>
+&lt;p>日常比较依赖表格做数据分类，obsidian对表格的支持不是很好，目前的实时预览是不支持表格的。所以能不使用表格就不用了，必要时可以拉起Typora来编辑表格。&lt;/p>
+&lt;h2 id="本地笔记-joplin笔记httpsjoplinapporg">本地笔记-&lt;a class="link" href="https://joplinapp.org/" target="_blank" rel="noopener"
+>Joplin笔记&lt;/a>&lt;/h2>
+&lt;p>因为目前Obsidian的网页剪辑太难用了，所以使用Joplin来替代&lt;a class="link" href="https://joplinapp.org/clipper/" target="_blank" rel="noopener"
+>网页剪辑&lt;/a>和本地软件同步的功能，两个都可以用于主力笔记编辑。&lt;/p>
+&lt;p>不过obsidian有知识管理和即时预览功能，Joplin的生态工具更丰富。不过随后都辛苦解决了。目前主用obsidian。&lt;/p>
+&lt;h2 id="线上博客">线上博客&lt;/h2>
+&lt;p>线上博客主要是分享文章，之前已经调研过一个博客，使用体验尚可，同时编辑器支持一键复制到公众号和知乎，还是很友好的。开源博客&lt;a class="link" href="https://github.com/88250/pipe" target="_blank" rel="noopener"
+>pipe&lt;/a>。搭建也比较简单，推荐使用docker搭建。&lt;/p>
+&lt;p>随后所有的博客都沉淀在pipe和公众号。本地笔记更多是非公开的工作日志内容。&lt;/p>
+&lt;h2 id="自建服务-s3">自建服务-S3&lt;/h2>
+&lt;p>&lt;a class="link" href="https://docs.min.io/" target="_blank" rel="noopener"
+>MinIO&lt;/a>是对象服务器，可以兼容aws s3 api，用来做同步中转的，随后再一次性同步回自己的Nas即可，线上S3同步参考&lt;a class="link" href="https://rclone.org/" target="_blank" rel="noopener"
+>RClone&lt;/a>。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wget https://dl.min.io/server/minio/release/linux-amd64/minio
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod +x minio
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">MINIO_ROOT_USER&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">test&lt;/span> &lt;span class="nv">MINIO_ROOT_PASSWORD&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">test&lt;/span> ./minio server ./ --console-address &lt;span class="s2">&amp;#34;:9001&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>会得到如下输出：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">API: http://172.22.0.15:9000 http://127.0.0.1:9000
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Console: http://172.22.0.15:9001 http://127.0.0.1:9001
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这个是admin用户，可以直接作为key和secret访问。&lt;/p>
+&lt;h3 id="tls配置">TLS配置&lt;/h3>
+&lt;p>为了可以在android和mac同时使用，最好有域名，并且申请好TLS证书，否则无法使用，可以使用nginx代理。&lt;/p>
+&lt;blockquote>
+&lt;p>注意MinIO不支持http/2，千万别在代理配置的时候打开http/2，我折腾好久，差点折在这。。。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="foldersync配置">foldersync配置&lt;/h3>
+&lt;p>建立账户使用如下配置，注意自定义端点的&lt;code>/&lt;/code>要保留。随后在同步设置时选择对应的bucket文件夹。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Access key ID: &lt;span class="nb">test&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Secret access key: &lt;span class="nb">test&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">自定义端点：https://s3.xxxxx.com/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">区域：随便选一个
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="remotely-save配置">Remotely Save配置&lt;/h3>
+&lt;p>配置结束，check一下如果成功，可以配置定期备份。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">S3Endpoint：https://s3.xxxxx.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">S3Region: us
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">S3AccessKeyID: &lt;span class="nb">test&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">S3SecretAccessKey: &lt;span class="nb">test&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">S3BucketName: bj
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="自建服务-图床">自建服务-图床&lt;/h2>
+&lt;p>图床对于笔记来说也很重要的，随后复制到线上或者转到公众号有一个图床可以方便复制笔记。研究图床使用，可以参考&lt;a class="link" href="https://www.jianshu.com/p/4c30495f4325" target="_blank" rel="noopener"
+>这个&lt;/a>，使用&lt;a class="link" href="https://github.com/wayjam/picgo-plugin-s3" target="_blank" rel="noopener"
+>picGo&lt;/a>来上传到图床，就是我的S3服务器了。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_02_20220217152653.png"
+loading="lazy"
+alt="2022_02_20220217152653.png"
+>&lt;/p>
+&lt;p>picGo默认不支持S3，需要从插件市场搜索下载，然后S3的配置需要注意，对于&lt;code>MinIO&lt;/code>必须打开&lt;code>PathStyleAccess&lt;/code>，而且为了随后可以访问，需要在自定义域名设置为&lt;code>S3 Url + bucket&lt;/code>，比如&lt;code>https://s3.test.com/images&lt;/code>，设置错误无法正常预览图片。&lt;/p>
+&lt;h2 id="obsidian实践">Obsidian实践&lt;/h2>
+&lt;p>Obsidian由于有丰富的开源生态，所以使用的体验还是很棒的。下面是一些使用经验分享给大家。&lt;/p>
+&lt;h3 id="如何调试obsidian">如何调试Obsidian&lt;/h3>
+&lt;p>obsidian底层还是一个前端，当出现软件异常，可以直接打开调试看插件或者obsidian的报错即可，windows和linux使用&lt;code>Ctrl-Shift-I&lt;/code> ，macOS是&lt;code>cmd-opt-I&lt;/code>。&lt;/p>
+&lt;h3 id="增加banner">增加Banner&lt;/h3>
+&lt;p>安装插件Banners即可，在&lt;a class="link" href="https://unsplash.com/" target="_blank" rel="noopener"
+>unsplash&lt;/a>搜你喜欢的图，然后输出命令&lt;code>/banner&lt;/code>找到&lt;code>add banner from clipboard&lt;/code>就快速添加到md头信息。同时&lt;code>cmd+e&lt;/code>可以预览效果。&lt;/p>
+&lt;h3 id="双向连接">双向连接&lt;/h3>
+&lt;p>有一篇不错的&lt;a class="link" href="https://zhuanlan.zhihu.com/p/355344374" target="_blank" rel="noopener"
+>文章&lt;/a>，介绍为什么使用MOC，以及有什么作用。用来管理笔记和积累知识体系很重要。&lt;/p>
+&lt;h3 id="看板">看板&lt;/h3>
+&lt;p>obsidian有一个&lt;a class="link" href="https://matthewmeye.rs/obsidian-kanban/" target="_blank" rel="noopener"
+>三方插件&lt;/a>，非常简单创建看板用来管理进度或者任务。&lt;a class="link" href="https://blog.galacoding.fun/blog/misc/obsidian%E7%9C%8B%E6%9D%BF%E6%8C%87%E5%8C%97/" >Obsidian看板指北&lt;/a>&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_02_20220222125027.png"
+loading="lazy"
+alt="2022_02_20220222125027.png"
+>&lt;/p>
+&lt;h3 id="大纲">大纲&lt;/h3>
+&lt;p>可以在核心插件中打开大纲的功能，在右侧栏显示笔记大纲，功能很好用。&lt;/p>
+&lt;h3 id="笔记漫游">笔记漫游&lt;/h3>
+&lt;p>可以在核心插件中打开笔记漫游，随机查看历史笔记，是一个不错的笔记发现功能。&lt;/p>
+&lt;h3 id="模板">模板&lt;/h3>
+&lt;p>可以在核心插件中打开模板功能，设置模板文件夹，我这里是新建&lt;code>Templates&lt;/code>文件夹作为模板目录，随后通过左侧栏使用模板，快速创建格式固定的笔记，比如任务、学习笔记等等。更多设置&lt;a class="link" href="https://publish.obsidian.md/help-zh/%E6%8F%92%E4%BB%B6/%E6%A8%A1%E6%9D%BF" target="_blank" rel="noopener"
+>参考&lt;/a>&lt;/p>
+&lt;p>设置模板的几个变量，日期：&lt;code>{{date}}&lt;/code>，时间&lt;code>{{time}}&lt;/code>，标题&lt;code>{{title}}&lt;/code>。&lt;a class="link" href="https://blog.galacoding.fun/blog/misc/obsidian%E6%A8%A1%E6%9D%BF%E6%8C%87%E5%8C%97/" >Obsidian模板指北&lt;/a>&lt;/p>
+&lt;h3 id="其他玩法与插件">其他玩法与插件&lt;/h3>
+&lt;p>可以自行搜索，网上对于obsidian的用法还是很多的。比如&lt;a class="link" href="https://forum-zh.obsidian.md/t/topic/194" target="_blank" rel="noopener"
+>这篇&lt;/a>。&lt;/p>
+&lt;h3 id="快捷键">快捷键&lt;/h3>
+&lt;p>梳理下自己使用的快捷键，这里面根据自己的习惯对快捷键进行了修改，大家可以做个参考。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>快捷键&lt;/th>
+&lt;th>功能&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>cmd+.&lt;/code>&lt;/td>
+&lt;td>插入代码块&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+e&lt;/code>&lt;/td>
+&lt;td>预览和编辑模式切换&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+w&lt;/code>&lt;/td>
+&lt;td>关闭当前文件&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+q&lt;/code>&lt;/td>
+&lt;td>关闭当前程序&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+o&lt;/code>&lt;/td>
+&lt;td>选择历史浏览的文件&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+p&lt;/code>&lt;/td>
+&lt;td>打开命令面板&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+1&lt;/code>&lt;/td>
+&lt;td>使用默认程序打开当前文件&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+2&lt;/code>&lt;/td>
+&lt;td>插入模板&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+3&lt;/code>&lt;/td>
+&lt;td>固定当前tab页&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+4&lt;/code>&lt;/td>
+&lt;td>使用笔记漫游&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+t&lt;/code>&lt;/td>
+&lt;td>新增编辑当前TODO任务&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+s&lt;/code>&lt;/td>
+&lt;td>保存当前文件&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+opt+i&lt;/code>&lt;/td>
+&lt;td>打开调试模式&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+l&lt;/code>&lt;/td>
+&lt;td>快速添加超链接&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>#&lt;/code>&lt;/td>
+&lt;td>快速添加标签&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[&lt;/code>&lt;/td>
+&lt;td>快速添加双链&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>&amp;gt;&lt;/code>&lt;/td>
+&lt;td>快速添加引用&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>-&lt;/code>&lt;/td>
+&lt;td>快速添加列表&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+,&lt;/code>&lt;/td>
+&lt;td>快速添加引用&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+;&lt;/code>&lt;/td>
+&lt;td>快速添加文字加粗 &lt;strong>123&lt;/strong>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+shift+f&lt;/code>&lt;/td>
+&lt;td>启动全局文件搜索&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+f&lt;/code>&lt;/td>
+&lt;td>本地文件搜索&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+'&lt;/code>&lt;/td>
+&lt;td>文本斜体 &lt;em>123&lt;/em>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+;&lt;/code> + &lt;code>cmd+'&lt;/code>&lt;/td>
+&lt;td>文本加粗斜体 &lt;em>&lt;strong>123&lt;/strong>&lt;/em>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+enter&lt;/code>&lt;/td>
+&lt;td>快速创建列表、checkbox切换&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+/&lt;/code>&lt;/td>
+&lt;td>文本高亮 ==123==&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+[&lt;/code>&lt;/td>
+&lt;td>快速插入双链&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+opt+-&amp;gt;&lt;/code>&lt;/td>
+&lt;td>切到下一个笔记&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>cmd+opt+&amp;lt;-&lt;/code>&lt;/td>
+&lt;td>切到上一个笔记&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>折腾还是很累的，不过很有成就感。新的笔记记录非常方便，除了表格没之前灵活以外，其他的功能都满足我的需求。而且笔记关联可以让我更好的拆分想法，进行管理。同时看板功能非常好用，可以用于日常任务管理。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_03_wxsousuo.png"
+loading="lazy"
+alt="2022_03_wxsousuo.png"
+>&lt;/p></description></item></channel></rss>

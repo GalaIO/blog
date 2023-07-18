@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>p11 on 攻城狮Gala</title><link>https://blog.galacoding.fun/tags/p11/</link><description>Recent content in p11 on 攻城狮Gala</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 31 Mar 2022 21:02:47 +0800</lastBuildDate><atom:link href="https://blog.galacoding.fun/tags/p11/index.xml" rel="self" type="application/rss+xml"/><item><title>Obsidian看板指北</title><link>https://blog.galacoding.fun/blog/misc/obsidian%E7%9C%8B%E6%9D%BF%E6%8C%87%E5%8C%97/</link><pubDate>Thu, 31 Mar 2022 21:02:47 +0800</pubDate><guid>https://blog.galacoding.fun/blog/misc/obsidian%E7%9C%8B%E6%9D%BF%E6%8C%87%E5%8C%97/</guid><description>&lt;img src="https://blog.galacoding.fun/assets/2022_03_20220330233357.png" alt="Featured image of post Obsidian看板指北" />&lt;!----- [obsidian](/tags/obsidian) [知识管理](/tags/知识管理) [效率](/tags/效率) ----->
+&lt;p>欢迎关注 &lt;strong>“攻城狮Gala”公/ 众 /号&lt;/strong> ，每天一起学习，努力成为Web3全栈&lt;/p>
+&lt;blockquote>
+&lt;p>摘要：你还在使用checkbox管理任务么？改用看板吧！&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="背景">背景&lt;/h2>
+&lt;p>之前笔记管理任务主要使用checkbox，能解决很多问题，记录任务是否完成，哪些是当前在做的，哪些是延后的。&lt;/p>
+&lt;p>然而当你的任务变得更多多，而且时间跨度非常大、任务下记录的内容也越多，这时使用简单的列表不好管理。&lt;/p>
+&lt;p>经过一段时间摸索，在Obsidian中，可以利用双链和看板来进行管理。&lt;/p>
+&lt;h2 id="看板插件">看板插件&lt;/h2>
+&lt;p>首先从Obsidian的插件市场中，搜索&lt;code>kanban&lt;/code>，下载看板插件。默认配置其实比较难看，需要对配置进行优化。可以参考如下截图：&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_02_20220222124145.png"
+loading="lazy"
+alt="2022_02_20220222124145.png"
+>
+&lt;img src="https://blog.galacoding.fun/assets/2022_02_20220222125054.png"
+loading="lazy"
+alt="2022_02_20220222125054.png"
+>&lt;/p>
+&lt;p>如果有未列出的配置，可以使用默认设置。&lt;/p>
+&lt;h2 id="看板记录原则">看板记录原则&lt;/h2>
+&lt;p>本节主要是我对任务管理的一些心得，可以供大家参考。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_02_20220222125027.png"
+loading="lazy"
+alt="2022_02_20220222125027.png"
+>&lt;/p>
+&lt;h3 id="按任务进度分类">按任务进度分类&lt;/h3>
+&lt;p>任务管理使用看板，记录==规划中==、==进行中==、==已完成==、==延后==四种任务，已完成需要记录完成时间。&lt;/p>
+&lt;h3 id="使用标签标记">使用标签标记&lt;/h3>
+&lt;ul>
+&lt;li>重要紧急四象限&lt;/li>
+&lt;/ul>
+&lt;p>使用p11表示紧急重要，p12紧急不重要，p21不紧急重要，p22不紧急不重要来表示，标签数量会少一些。&lt;/p>
+&lt;ul>
+&lt;li>计划时间&lt;/li>
+&lt;/ul>
+&lt;p>&lt;code>#年-月&lt;/code>表示几月份计划，&lt;code>#年-月-week&lt;/code>表示第几周计划，&lt;code>#年-月-日&lt;/code>表示第几天计划&lt;/p>
+&lt;ul>
+&lt;li>任务类别&lt;/li>
+&lt;/ul>
+&lt;p>&lt;code>#类别&lt;/code>表示哪种类型任务，比如后端，读书等等&lt;/p>
+&lt;blockquote>
+&lt;p>一个基础任务最少一类标签，即必须具有类别标签；
+在执行中的至少3类标签，表示紧急重要程度、计划时间、任务类别；&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="完成记录时间">完成记录时间&lt;/h3>
+&lt;p>在拖拽到==已完成==列时，需要设置当前日期，用来记录完成时间。&lt;/p>
+&lt;h3 id="任务链接">任务链接&lt;/h3>
+&lt;p>最好不要在看板增加复杂的描述，推荐使用双链笔记，讲具体的任务描述和跟进写在具体笔记中。&lt;/p>
+&lt;h2 id="快速实践">快速实践&lt;/h2>
+&lt;h3 id="使用命令">使用命令&lt;/h3>
+&lt;p>在命令面板中搜索&lt;code>kanban&lt;/code>，可以找到快速创建看板，转换已有笔记为看板的快捷键。&lt;/p>
+&lt;h3 id="创建模板">创建模板&lt;/h3>
+&lt;p>可以使用我创建的模板。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-md" data-lang="md">&lt;span class="line">&lt;span class="cl">---
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">kanban-plugin: basic
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">---
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gu">## 规划中
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gu">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">- [ ]&lt;/span> [&lt;span class="nt">p11&lt;/span>](&lt;span class="na">/tags/p11&lt;/span>) [&lt;span class="nt">工作&lt;/span>](&lt;span class="na">/tags/工作&lt;/span>) &lt;span class="ni">#2022&lt;/span>-02 &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>测试规划
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gu">## 进行中
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gu">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">- [ ]&lt;/span> [&lt;span class="nt">p11&lt;/span>](&lt;span class="na">/tags/p11&lt;/span>) [&lt;span class="nt">工作&lt;/span>](&lt;span class="na">/tags/工作&lt;/span>) &lt;span class="ni">#2022&lt;/span>-02 &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>测试进行中
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gu">## 已完成
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gu">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="ge">**&lt;/span>完成**
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">- [ ]&lt;/span> [&lt;span class="nt">p11&lt;/span>](&lt;span class="na">/tags/p11&lt;/span>) [&lt;span class="nt">工作&lt;/span>](&lt;span class="na">/tags/工作&lt;/span>) &lt;span class="ni">#2022&lt;/span>-02 &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>测试已完成 @{2022-02-22}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gu">## 延后
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gu">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">- [ ]&lt;/span> [&lt;span class="nt">p11&lt;/span>](&lt;span class="na">/tags/p11&lt;/span>) [&lt;span class="nt">工作&lt;/span>](&lt;span class="na">/tags/工作&lt;/span>) &lt;span class="ni">#2022&lt;/span>-02 &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>测试延后
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">%% kanban:settings
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#34;kanban-plugin&amp;#34;:&amp;#34;basic&amp;#34;}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">%%
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="编辑卡片">编辑卡片&lt;/h3>
+&lt;ul>
+&lt;li>新增卡片&lt;/li>
+&lt;/ul>
+&lt;p>在每一列下有一个按钮，可以快速新增卡片，同时可以在已有卡片选择复制。&lt;/p>
+&lt;ul>
+&lt;li>编辑卡片&lt;/li>
+&lt;/ul>
+&lt;p>直接在卡片上双击即可进入编辑。&lt;/p>
+&lt;ul>
+&lt;li>添加标签&lt;/li>
+&lt;/ul>
+&lt;p>在编辑时，输入&lt;code>#&lt;/code>紧跟标签名，即可创建标签。&lt;/p>
+&lt;ul>
+&lt;li>卡片拖拽&lt;/li>
+&lt;/ul>
+&lt;p>直接点击卡片不放即可在各个列拖拽卡片。&lt;/p>
+&lt;ul>
+&lt;li>添加日志&lt;/li>
+&lt;/ul>
+&lt;p>在卡片右侧，选择插入日期即可。&lt;/p>
+&lt;h3 id="快捷键">快捷键&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>快捷键&lt;/th>
+&lt;th>功能&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>shift+enter&lt;/code>&lt;/td>
+&lt;td>卡片换行&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>#&lt;/code>&lt;/td>
+&lt;td>插入标签&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="使用dataview">使用dataview&lt;/h3>
+&lt;p>可以使用使用dataview来查看笔记数据。具体不介绍了。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>现有任务慢慢迁移到新的看板中，比trello任务管理优势，本地管理，双链方便，离线记录，私有化更安全。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_03_wxsousuo.png"
+loading="lazy"
+alt="2022_03_wxsousuo.png"
+>&lt;/p></description></item><item><title>Obsidian模板指北</title><link>https://blog.galacoding.fun/blog/misc/obsidian%E6%A8%A1%E6%9D%BF%E6%8C%87%E5%8C%97/</link><pubDate>Thu, 31 Mar 2022 21:01:42 +0800</pubDate><guid>https://blog.galacoding.fun/blog/misc/obsidian%E6%A8%A1%E6%9D%BF%E6%8C%87%E5%8C%97/</guid><description>&lt;img src="https://blog.galacoding.fun/assets/2022_03_20220330233357.png" alt="Featured image of post Obsidian模板指北" />&lt;!----- [obsidian](/tags/obsidian) [效率](/tags/效率) [知识管理](/tags/知识管理) ----->
+&lt;p>欢迎关注 &lt;strong>“攻城狮Gala”公/ 众 /号&lt;/strong> ，每天一起学习，努力成为Web3全栈&lt;/p>
+&lt;blockquote>
+&lt;p>摘要：如果你经常写笔记，你一定需要笔记模板。&lt;/p>
+&lt;/blockquote>
+&lt;p>Obsidian的模板可以极大提高工作效率。可以在常用的场景，比如笔记、灵感等快速插入固定格式，你只需要关注内容记录即可。&lt;/p>
+&lt;h2 id="模板环境">模板环境&lt;/h2>
+&lt;p>Obsidian官方的核心插件就支持模板的功能，无需下载额外的插件。&lt;/p>
+&lt;h3 id="启用模板">启用模板&lt;/h3>
+&lt;p>在Obsidian的设置中，选择&lt;code>核心插件-&amp;gt;模板&lt;/code>，打开模板插件。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_03_20220327230149.png"
+loading="lazy"
+alt="2022_03_20220327230149.png"
+>&lt;/p>
+&lt;h3 id="配置">配置&lt;/h3>
+&lt;p>一般模板的配置无需修改，当然你可以根据自己的需求进行改动。推荐配置如下：&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_03_20220327230248.png"
+loading="lazy"
+alt="2022_03_20220327230248.png"
+>&lt;/p>
+&lt;h2 id="模板实践">模板实践&lt;/h2>
+&lt;p>下面介绍一下，如何使用模板提高你的协作效率。&lt;/p>
+&lt;h3 id="编辑模板">编辑模板&lt;/h3>
+&lt;p>在上节你配置的模板目录中，可以新建一篇笔记，这篇笔记就可以作为模板插入到任意笔记中。&lt;/p>
+&lt;p>可以提供给你的替换变量有：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">标题 -&amp;gt; &lt;span class="o">{{&lt;/span>title&lt;span class="o">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">日期 -&amp;gt; &lt;span class="o">{{&lt;/span>date&lt;span class="o">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">时间 -&amp;gt; &lt;span class="o">{{&lt;/span>time&lt;span class="o">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如果你编写的模板笔记为：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># {{title}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">日期：&lt;span class="o">{{&lt;/span>date&lt;span class="o">}}&lt;/span> 时间：&lt;span class="o">{{&lt;/span>time&lt;span class="o">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>当你在名为&lt;code>Golang编程入门.md&lt;/code>的笔记中插入上述模板时，会替换为如下内容：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Golang编程入门&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">日期：2022-03-27 时间：23:00
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>现在你已经入门Obsidian的模板使用了。&lt;/p>
+&lt;h3 id="命令面板">命令面板&lt;/h3>
+&lt;p>现在你需要学习如何在笔记中插入模板，可以唤起&lt;code>命令面板&lt;/code>，输入&lt;code>模板&lt;/code>就可以找到&lt;code>插入模板&lt;/code>命令，然后弹出所有模板进行选择即可。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_03_20220327231120.png"
+loading="lazy"
+alt="2022_03_20220327231120.png"
+>&lt;/p>
+&lt;h2 id="模板推荐">模板推荐&lt;/h2>
+&lt;p>下面有一些我自用的模板供大家参考，有需自取。&lt;/p>
+&lt;h3 id="灵感">灵感&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## {{title}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">日期: &lt;span class="o">{{&lt;/span>date&lt;span class="o">}}&lt;/span> 时间: &lt;span class="o">{{&lt;/span>time&lt;span class="o">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="笔记">笔记&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># {{title}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; 日期：&lt;span class="o">{{&lt;/span>date&lt;span class="o">}}&lt;/span> 时间：&lt;span class="o">{{&lt;/span>time&lt;span class="o">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; &lt;span class="c1">#tmp&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 大纲&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="看板">看板&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">---
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">kanban-plugin: basic
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">---
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 规划中&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">- &lt;span class="o">[&lt;/span> &lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>p11&lt;span class="o">](&lt;/span>/tags/p11&lt;span class="o">)&lt;/span> &lt;span class="o">[&lt;/span>工作&lt;span class="o">](&lt;/span>/tags/工作&lt;span class="o">)&lt;/span> &lt;span class="c1">#2022-02 &amp;lt;br&amp;gt;&amp;lt;br&amp;gt;测试规划&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 进行中&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 已完成&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">**完成**
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">- &lt;span class="o">[&lt;/span> &lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>p11&lt;span class="o">](&lt;/span>/tags/p11&lt;span class="o">)&lt;/span> &lt;span class="o">[&lt;/span>工作&lt;span class="o">](&lt;/span>/tags/工作&lt;span class="o">)&lt;/span> &lt;span class="c1">#2022-02 &amp;lt;br&amp;gt;&amp;lt;br&amp;gt;测试已完成 @{2022-02-22}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 延后&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">%% kanban:settings
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;kanban-plugin&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;basic&amp;#34;&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">%%
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_03_wxsousuo.png"
+loading="lazy"
+alt="2022_03_wxsousuo.png"
+>&lt;/p></description></item></channel></rss>

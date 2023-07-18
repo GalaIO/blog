@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cloudflare on 攻城狮Gala</title><link>https://blog.galacoding.fun/tags/cloudflare/</link><description>Recent content in Cloudflare on 攻城狮Gala</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 03 Jul 2023 22:46:14 +0800</lastBuildDate><atom:link href="https://blog.galacoding.fun/tags/cloudflare/index.xml" rel="self" type="application/rss+xml"/><item><title>使用CloudFlare Pages托管网站</title><link>https://blog.galacoding.fun/blog/devops/%E4%BD%BF%E7%94%A8cloudflare-pages%E6%89%98%E7%AE%A1%E7%BD%91%E7%AB%99/</link><pubDate>Mon, 03 Jul 2023 22:46:14 +0800</pubDate><guid>https://blog.galacoding.fun/blog/devops/%E4%BD%BF%E7%94%A8cloudflare-pages%E6%89%98%E7%AE%A1%E7%BD%91%E7%AB%99/</guid><description>&lt;img src="https://blog.galacoding.fun/assets/Pasted%20image%2020230703224931.png" alt="Featured image of post 使用CloudFlare Pages托管网站" />&lt;!----- [趣玩](/tags/趣玩) [Cloudflare](/tags/Cloudflare) ----->
+&lt;p>欢迎关注 &lt;strong>“攻城狮Gala”公/ 众 /号&lt;/strong> ，每天一起学习，努力成为Web3全栈&lt;/p>
+&lt;p>如何白嫖省心的CloudFlare Pages服务？完美替代Github Pages，对大陆网络友好～&lt;/p>
+&lt;h2 id="背景">背景&lt;/h2>
+&lt;p>之前自己重新开始写博客了，为了方便本地md笔记(参考&lt;a class="link" href="https://blog.galacoding.fun/blog/misc/%E4%B8%AA%E4%BA%BA%E7%AC%94%E8%AE%B0%E6%96%B0%E8%A7%A3-obsidian/" >个人笔记新解-Obsidian&lt;/a>)可以publish到公网，重新选型博客系统，最后决定使用hugo，参考&lt;code>Obsidian与Hugo的一拍即合&lt;/code>。&lt;/p>
+&lt;p>不过之前计划直接挂在服务器的nginx上，不过请求流量和访问稳定性都是问题，同时hugo是静态网站，可以直接放到Github Pages上，当然现在有新的选择了，就是ClouFlare Pages，相比Github的服务肯定大陆访问的稳定性更好～&lt;/p>
+&lt;h2 id="简介">简介&lt;/h2>
+&lt;p>Cloudfalre Pages服务在2021年就可用了，参见&lt;a class="link" href="https://blog.cloudflare.com/cloudflare-pages-ga/" target="_blank" rel="noopener"
+>Cloudflare Pages is now Generally Available&lt;/a>。&lt;/p>
+&lt;p>可以通过链接你的github或者gitlab，当push到远端时，cf pages将自动构建部署。使用 Cloudflare Pages 开发的每个站点都部署到位于 100 多个国家/地区的 Cloudflare 数据中心网络。&lt;/p>
+&lt;p>同时还有如下特性：&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Built-in, free web analytics&lt;/strong>，通过&lt;a class="link" href="https://www.cloudflare.com/web-analytics/" target="_blank" rel="noopener"
+>Web Analytics&lt;/a>，只需单击一下即可启用分析，并开始跟踪网站的进度和性能，包括有关流量和网络核心生命体征的指标。&lt;/li>
+&lt;li>&lt;strong>redirects file support&lt;/strong>，通过将 &lt;code>_redirects&lt;/code> 文件添加到项目的构建输出目录，您可以轻松地将用户重定向到正确的 URL。格式如&lt;code>[source] [destination] [http code]&lt;/code>。&lt;/li>
+&lt;li>其他特性：&lt;/li>
+&lt;li>&lt;strong>Protected previews with Cloudflare Access integration&lt;/strong>，custom your access policy；&lt;/li>
+&lt;li>&lt;strong>Live previews with Cloudflare Tunnel&lt;/strong>；&lt;/li>
+&lt;li>&lt;strong>Image compression&lt;/strong>，&lt;strong>Device-based resizing&lt;/strong>，&lt;strong>Gzip and Brotli&lt;/strong>，&lt;strong>Device-based resizing&lt;/strong>；&lt;/li>
+&lt;li>&lt;strong>A/B testing&lt;/strong>，&lt;strong>Webhooks&lt;/strong>；&lt;/li>
+&lt;li>Integrate with &lt;strong>Cloudflare Workers&lt;/strong>；&lt;/li>
+&lt;/ol>
+&lt;h2 id="部署">部署&lt;/h2>
+&lt;p>准备创建Clouflare Pages:&lt;/p>
+&lt;ol>
+&lt;li>登录 &lt;a class="link" href="https://dash.cloudflare.com/" target="_blank" rel="noopener"
+>Cloudflare dashboard&lt;/a>，选择你的账户.&lt;/li>
+&lt;li>选择&lt;strong>Workers &amp;amp; Pages&lt;/strong>，选择&lt;strong>Create application&lt;/strong> &amp;gt; &lt;strong>Pages&lt;/strong> &amp;gt; &lt;strong>Connect to Git&lt;/strong>.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/Pasted%20image%2020230703231008.png"
+loading="lazy"
+alt="Pasted image 20230703231008.png"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>推荐使用Git部署，虽然支持直接上传资产，但是链接git可以更好协同。&lt;/p>
+&lt;/blockquote>
+&lt;ol start="3">
+&lt;li>链接Github，选择对应的仓库。&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/Pasted%20image%2020230703231158.png"
+loading="lazy"
+alt="Pasted image 20230703231158.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/Pasted%20image%2020230703231315.png"
+loading="lazy"
+alt="Pasted image 20230703231315.png"
+>&lt;/p>
+&lt;ol start="4">
+&lt;li>选择仓库分支，并编辑构建命令，因为我的项目已经使用&lt;code>github-pages-action&lt;/code>自动完成构建到分支&lt;code>gh-pages&lt;/code>，所以跳过设置构建，其他框架构建参考&lt;a class="link" href="https://developers.cloudflare.com/pages/platform/build-configuration" target="_blank" rel="noopener"
+>配置构建&lt;/a>。&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/Pasted%20image%2020230703231820.png"
+loading="lazy"
+alt="Pasted image 20230703231820.png"
+>&lt;/p>
+&lt;ol start="5">
+&lt;li>点击保存并部署，cf pages提供一个免费的二级域名访问测试。&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/Pasted%20image%2020230703232813.png"
+loading="lazy"
+alt="Pasted image 20230703232813.png"
+>&lt;/p>
+&lt;h2 id="其他功能">其他功能&lt;/h2>
+&lt;h3 id="查看pages程序">查看pages程序&lt;/h3>
+&lt;p>可以在&lt;code>workers和pages&lt;/code>的概述中，浏览部署的程序和plan uasge情况，免费的每天有100000次请求，一般够用的。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/Pasted%20image%2020230703233603.png"
+loading="lazy"
+alt="Pasted image 20230703233603.png"
+>&lt;/p>
+&lt;h3 id="重定向域名">重定向域名&lt;/h3>
+&lt;p>在pages的项目页，选择&lt;code>自定义域&lt;/code>，点击&lt;code>设置自定义域&lt;/code>，注意输入你已经转入cf的域名。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/Pasted%20image%2020230703234328.png"
+loading="lazy"
+alt="Pasted image 20230703234328.png"
+>&lt;/p>
+&lt;p>输入域名后，cf会自动添加一个&lt;code>CNAME&lt;/code>解析到对应域名，注意如果与原有域名冲突cf会提示。最后点击&lt;code>激活域&lt;/code>完成激活。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/Pasted%20image%2020230703234532.png"
+loading="lazy"
+alt="Pasted image 20230703234532.png"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>这里可以输入一级域名，也可以输入二级域名，比如&lt;code>blog.xxx.com&lt;/code>。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="启用web-analysis">启用Web Analysis&lt;/h3>
+&lt;p>在项目的&lt;code>设置&lt;/code>中，点击&lt;code>启用Web analysis&lt;/code>，随后在&lt;a class="link" href="https://www.cloudflare.com/web-analytics" target="_blank" rel="noopener"
+>Cloudflare Web Analytics&lt;/a>查看网站流量。&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/Pasted%20image%2020230703233802.png"
+loading="lazy"
+alt="Pasted image 20230703233802.png"
+>&lt;/p>
+&lt;p>Web Analysis展示：&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/Pasted%20image%2020230703234032.png"
+loading="lazy"
+alt="Pasted image 20230703234032.png"
+>&lt;/p>
+&lt;h2 id="faq">FAQ&lt;/h2>
+&lt;h3 id="图片过大返回404">图片过大返回404&lt;/h3>
+&lt;p>在使用过程中，发现一个5.2MB的图片无法显示，可能和CF的限制有关，需要确认，使用压缩后图片显示正常。&lt;/p>
+&lt;h2 id="最后">最后&lt;/h2>
+&lt;p>体验效果不错～欢迎大家按照步骤尝试～&lt;/p>
+&lt;p>&lt;img src="https://blog.galacoding.fun/assets/2022_03_wxsousuo.png"
+loading="lazy"
+alt="2022_03_wxsousuo.png"
+>&lt;/p></description></item></channel></rss>
